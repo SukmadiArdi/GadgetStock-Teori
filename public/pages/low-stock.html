@@ -1,0 +1,80 @@
+<!-- pages/low-stock.html -->
+<div class="fade-in">
+  <style>
+    #alert-summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .alert-card {
+      padding: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      border-left: 4px solid transparent;
+    }
+    @media (max-width: 767px) {
+      #alert-summary {
+        grid-template-columns: 1fr;
+      }
+      .alert-card {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+      }
+      .alert-card-actions {
+        flex-direction: row !important;
+        justify-content: stretch;
+      }
+      .alert-card-actions button {
+        flex: 1;
+      }
+    }
+  </style>
+  <div style="margin-bottom:2rem;">
+    <p style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.15em;font-weight:700;color:var(--on-surface-variant);">Monitoring</p>
+    <h1 style="font-size:1.875rem;font-weight:800;color:var(--text-blue);">Low Stock Alerts</h1>
+  </div>
+
+  <div id="alert-summary">
+    <div class="card" style="padding:1.5rem;border-left:4px solid var(--error);">
+      <p style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;color:var(--on-surface-variant);">Out of Stock</p>
+      <h3 id="count-oos" style="font-size:2.5rem;font-weight:800;color:var(--error);">—</h3>
+    </div>
+    <div class="card" style="padding:1.5rem;border-left:4px solid var(--error);">
+      <p style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;color:var(--on-surface-variant);" id="label-critical">Critical</p>
+      <h3 id="count-critical" style="font-size:2.5rem;font-weight:800;color:var(--error);">—</h3>
+    </div>
+    <div class="card" style="padding:1.5rem;border-left:4px solid #b45309;">
+      <p style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;color:var(--on-surface-variant);" id="label-low">Low Stock</p>
+      <h3 id="count-low" style="font-size:2.5rem;font-weight:800;color:#b45309;">—</h3>
+    </div>
+  </div>
+
+  <!-- Product Lists -->
+  <div style="display:flex;flex-direction:column;gap:1.5rem;" id="alert-lists">
+    <div class="skeleton" style="height:8rem;border-radius:0.75rem;"></div>
+    <div class="skeleton" style="height:8rem;border-radius:0.75rem;"></div>
+  </div>
+</div>
+
+<!-- Restock Modal -->
+<div id="restock-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:1000;display:none;align-items:center;justify-content:center;">
+  <div class="card" style="padding:2rem;width:22rem;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,0.25);">
+    <h2 style="font-size:1.125rem;font-weight:800;color:var(--text-blue);margin-bottom:0.25rem;">Restock Product</h2>
+    <p id="restock-product-name" style="font-size:0.8125rem;color:var(--on-surface-variant);margin-bottom:1.5rem;"></p>
+    <div class="form-group" style="margin-bottom:1.5rem;">
+      <label class="form-label">Quantity to Add</label>
+      <input type="text" id="restock-qty-input" class="form-input" placeholder="e.g. 10" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')" style="font-size:1rem;font-weight:700;" />
+    </div>
+    <div style="display:flex;gap:0.75rem;justify-content:flex-end;">
+      <button class="btn btn-ghost" onclick="closeRestockModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="confirmRestock()">
+        <span class="material-symbols-outlined">add_box</span>Restock
+      </button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/js/pages/low-stock.js"></script>

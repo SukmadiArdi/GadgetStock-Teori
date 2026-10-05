@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Inventory Management | PhonePOS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#001f3f",
+                    "tertiary": "#110200",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-tertiary-fixed-variant": "#6b3a25",
+                    "on-tertiary-fixed": "#351002",
+                    "outline-variant": "#c4c6cf",
+                    "surface-container": "#edeeef",
+                    "on-background": "#191c1d",
+                    "background": "#f8f9fa",
+                    "surface-bright": "#f8f9fa",
+                    "error": "#ba1a1a",
+                    "inverse-primary": "#afc8f0",
+                    "surface-dim": "#d9dadb",
+                    "on-tertiary-container": "#b5785f",
+                    "tertiary-fixed": "#ffdbce",
+                    "primary-fixed": "#d4e3ff",
+                    "surface-container-high": "#e7e8e9",
+                    "surface-variant": "#e1e3e4",
+                    "on-secondary-fixed-variant": "#474747",
+                    "tertiary-fixed-dim": "#fdb69a",
+                    "outline": "#74777f",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#43474e",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "on-primary-container": "#6f88ad",
+                    "primary": "#000613",
+                    "tertiary-container": "#391303",
+                    "surface": "#f8f9fa",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#2e3132",
+                    "secondary-fixed": "#e4e2e1",
+                    "primary-fixed-dim": "#afc8f0",
+                    "on-secondary-container": "#656464",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#c8c6c6",
+                    "secondary-container": "#e4e2e1",
+                    "on-primary-fixed": "#001c3a",
+                    "on-surface": "#191c1d",
+                    "surface-tint": "#476083",
+                    "secondary": "#5f5e5e",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c4c6cf; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<aside class="h-screen w-64 fixed left-0 top-0 bg-slate-100 flex flex-col p-4 gap-2 transition-all duration-200 ease-in-out">
+<div class="flex items-center gap-3 px-2 py-4 mb-4">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="store">store</span>
+</div>
+<div>
+<h2 class="font-bold text-blue-950 leading-tight">GadgetStock</h2>
+<p class="text-[10px] uppercase tracking-widest text-slate-500">Terminal 01</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1 flex-grow">
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:text-blue-950 hover:bg-white/50 transition-all rounded-lg font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:text-blue-950 hover:bg-white/50 transition-all rounded-lg font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="point_of_sale">point_of_sale</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">POS</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 bg-white text-blue-950 rounded-lg shadow-sm font-bold" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:text-blue-950 hover:bg-white/50 transition-all rounded-lg font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Transactions</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:text-blue-950 hover:bg-white/50 transition-all rounded-lg font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:text-blue-950 hover:bg-white/50 transition-all rounded-lg font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Analytics</span>
+</a>
+</nav>
+<button class="mt-auto bg-primary-container text-white p-4 rounded-xl flex items-center justify-center gap-2 font-bold active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>New Sale</span>
+</button>
+</aside>
+<main class="ml-64 min-h-screen">
+<header class="w-full sticky top-0 z-10 bg-slate-50/80 backdrop-blur-md flex items-center justify-between px-8 py-4 border-b border-transparent">
+<div class="flex items-center gap-8 flex-1">
+<h1 class="text-xl font-bold tracking-tighter text-blue-950">PhonePOS</h1>
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm" data-icon="search">search</span>
+<input class="w-full bg-slate-200/50 border-none rounded-lg py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-blue-950/20 transition-all placeholder:text-slate-500" placeholder="Search inventory, SKUs, or models..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-slate-200 mx-2"></div>
+<img alt="Manager Profile" class="w-9 h-9 rounded-full object-cover ring-2 ring-white shadow-sm" data-alt="Close-up portrait of a professional store manager in a clean modern office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVXdjMIa9iiHK2ue-GLSOmsftgwn3pNwIH-nnt5S_JhGk_1L3BNwIaSjyyVJ8DaLCXEYMNmqMrxR8TPU1o0lR9kvvsV3ZGO8ZUg8HFTehMcoEt31cuGN_yKAP-ZHvA9xZ2Cs1FS98yw9DQpzmuIEonltsk5i6_WuZ0o7MTbpGZhYOVJqvRlOABwOXEi2hY_JKyzsjYJVIZzJIYeKX7ZElDQ757AR1I17cbB5yUMEBXRxUc0TpOvV3GhSFE0gldWSMgfkv5-91hSg"/>
+</div>
+</header>
+<div class="p-8 max-w-[1400px] mx-auto">
+<div class="flex items-end justify-between mb-10">
+<div>
+<span class="text-[10px] uppercase tracking-[0.2em] font-bold text-on-surface-variant mb-2 block">Catalog Overview</span>
+<h2 class="text-4xl font-extrabold tracking-tight text-primary-container">Inventory Management</h2>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white text-primary-container border border-outline-variant/30 rounded-lg font-semibold hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="filter_list">filter_list</span>
+                        Filter
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary-container text-white rounded-lg font-semibold shadow-lg shadow-primary-container/20 hover:opacity-90 transition-all active:scale-95">
+<span class="material-symbols-outlined text-xl" data-icon="add_box">add_box</span>
+                        Add Product
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-6 mb-8">
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-xl p-1 shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-separate border-spacing-0">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-6 py-4 text-[10px] uppercase tracking-widest font-bold text-slate-500 border-b border-outline-variant/10">SKU</th>
+<th class="px-6 py-4 text-[10px] uppercase tracking-widest font-bold text-slate-500 border-b border-outline-variant/10">Brand</th>
+<th class="px-6 py-4 text-[10px] uppercase tracking-widest font-bold text-slate-500 border-b border-outline-variant/10">Model</th>
+<th class="px-6 py-4 text-[10px] uppercase tracking-widest font-bold text-slate-500 border-b border-outline-variant/10">Category</th>
+<th class="px-6 py-4 text-[10px] uppercase tracking-widest font-bold text-slate-500 border-b border-outline-variant/10 text-right">Unit Price</th>
+<th class="px-6 py-4 text-[10px] uppercase tracking-widest font-bold text-slate-500 border-b border-outline-variant/10">Status</th>
+<th class="px-6 py-4 text-[10px] uppercase tracking-widest font-bold text-slate-500 border-b border-outline-variant/10 text-right">Stock</th>
+<th class="px-6 py-4 text-[10px] uppercase tracking-widest font-bold text-slate-500 border-b border-outline-variant/10"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-5 font-mono text-xs text-slate-500">APL-IP15-P-256</td>
+<td class="px-6 py-5 font-semibold text-primary-container">Apple</td>
+<td class="px-6 py-5 text-on-surface">iPhone 15 Pro Max</td>
+<td class="px-6 py-5 text-on-surface-variant text-sm">Smartphones</td>
+<td class="px-6 py-5 text-right font-bold text-primary-container">Rp 18.899.000</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                                            In Stock
+                                        </span>
+</td>
+<td class="px-6 py-5 text-right font-medium text-on-surface">42</td>
+<td class="px-6 py-5 text-right">
+<button class="opacity-0 group-hover:opacity-100 p-2 text-slate-400 hover:text-primary-container hover:bg-slate-100 rounded-lg transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-5 font-mono text-xs text-slate-500">SAM-S24-U-512</td>
+<td class="px-6 py-5 font-semibold text-primary-container">Samsung</td>
+<td class="px-6 py-5 text-on-surface">Galaxy S24 Ultra</td>
+<td class="px-6 py-5 text-on-surface-variant text-sm">Smartphones</td>
+<td class="px-6 py-5 text-right font-bold text-primary-container">Rp 20.499.000</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
+                                            Low Stock
+                                        </span>
+</td>
+<td class="px-6 py-5 text-right font-medium text-on-surface text-amber-600">8</td>
+<td class="px-6 py-5 text-right">
+<button class="opacity-0 group-hover:opacity-100 p-2 text-slate-400 hover:text-primary-container hover:bg-slate-100 rounded-lg transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-5 font-mono text-xs text-slate-500">GGL-PXL8-P-128</td>
+<td class="px-6 py-5 font-semibold text-primary-container">Google</td>
+<td class="px-6 py-5 text-on-surface">Pixel 8 Pro</td>
+<td class="px-6 py-5 text-on-surface-variant text-sm">Smartphones</td>
+<td class="px-6 py-5 text-right font-bold text-primary-container">Rp 15.799.000</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                                            In Stock
+                                        </span>
+</td>
+<td class="px-6 py-5 text-right font-medium text-on-surface">15</td>
+<td class="px-6 py-5 text-right">
+<button class="opacity-0 group-hover:opacity-100 p-2 text-slate-400 hover:text-primary-container hover:bg-slate-100 rounded-lg transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-5 font-mono text-xs text-slate-500">APL-AW9-45-SL</td>
+<td class="px-6 py-5 font-semibold text-primary-container">Apple</td>
+<td class="px-6 py-5 text-on-surface">Watch Series 9</td>
+<td class="px-6 py-5 text-on-surface-variant text-sm">Wearables</td>
+<td class="px-6 py-5 text-right font-bold text-primary-container">Rp 6.799.000</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-error-container text-on-error-container">
+                                            Out of Stock
+                                        </span>
+</td>
+<td class="px-6 py-5 text-right font-medium text-error">0</td>
+<td class="px-6 py-5 text-right">
+<button class="opacity-0 group-hover:opacity-100 p-2 text-slate-400 hover:text-primary-container hover:bg-slate-100 rounded-lg transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-5 font-mono text-xs text-slate-500">SNY-WF1K-M5</td>
+<td class="px-6 py-5 font-semibold text-primary-container">Sony</td>
+<td class="px-6 py-5 text-on-surface">WF-1000XM5</td>
+<td class="px-6 py-5 text-on-surface-variant text-sm">Accessories</td>
+<td class="px-6 py-5 text-right font-bold text-primary-container">Rp 4.699.000</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                                            In Stock
+                                        </span>
+</td>
+<td class="px-6 py-5 text-right font-medium text-on-surface">28</td>
+<td class="px-6 py-5 text-right">
+<button class="opacity-0 group-hover:opacity-100 p-2 text-slate-400 hover:text-primary-container hover:bg-slate-100 rounded-lg transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-6 py-4 flex items-center justify-between bg-surface">
+<p class="text-xs text-on-surface-variant">Showing 5 of 124 products</p>
+<div class="flex items-center gap-2">
+<button class="p-1 rounded hover:bg-surface-container-high transition-colors text-slate-400">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<span class="text-xs font-bold text-primary-container px-2">1</span>
+<button class="p-1 rounded hover:bg-surface-container-high transition-colors text-slate-400">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<div class="bg-primary-container text-white rounded-xl p-6 shadow-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-8 opacity-10 transform translate-x-4 -translate-y-4">
+<span class="material-symbols-outlined text-9xl" data-icon="monitoring">monitoring</span>
+</div>
+<div class="relative z-10">
+<p class="text-[10px] uppercase tracking-widest text-on-primary-container mb-1">Inventory Value</p>
+<h3 class="text-3xl font-bold tracking-tight mb-4">Rp 1.325.450.000</h3>
+<div class="flex items-center gap-2 text-xs text-green-400">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+<span>+12.4% from last month</span>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-white/10 grid grid-cols-2 gap-4 relative z-10">
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-primary-container">Low Stock</p>
+<p class="text-xl font-bold">14 Items</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-primary-container">Out of Stock</p>
+<p class="text-xl font-bold text-error-container">3 Items</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm">
+<h4 class="text-sm font-bold text-primary-container mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="update">update</span>
+                            Recent Activities
+                        </h4>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-sm text-slate-600" data-icon="inventory">inventory</span>
+</div>
+<div>
+<p class="text-xs text-on-surface">Stock added: <span class="font-bold">20x Galaxy S24 Ultra</span></p>
+<p class="text-[10px] text-on-surface-variant mt-1">2 hours ago • By Alex M.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-sm text-slate-600" data-icon="sell">sell</span>
+</div>
+<div>
+<p class="text-xs text-on-surface">Price updated: <span class="font-bold">iPhone 15 Pro Max</span></p>
+<p class="text-[10px] text-on-surface-variant mt-1">Yesterday • Automated Task</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-8 h-8 rounded-full bg-error-container/20 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-sm text-error" data-icon="warning">warning</span>
+</div>
+<div>
+<p class="text-xs text-on-surface">Alert: <span class="font-bold text-error">Pixel 8 Pro below threshold</span></p>
+<p class="text-[10px] text-on-surface-variant mt-1">Today, 10:45 AM • System</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-xl p-6 relative overflow-hidden h-40">
+<img class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-30" data-alt="Abstract dynamic photograph of high-tech digital devices organized in a professional grid with cool blue lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2nXkMuW_icFqGLp0Zitdrzbdskn_fOgzjrZuBSYGBdGMACG0tpd-1OT6IyEaZjav9ioEdzc7M0oVa8BuiReReoJvNRWztGGSCZggzz55s340EGD7U91s1xk0_HyJYp9j58nAHm5ltn0CECShSTL_U8wrNjJLq0Y6FO3zbNqNX1W30jz87hU_fNxLoQYpDmyTkD8kSIm-ju1tF7lcx5KRYgJXLW5CAsr0ot5TxZTLoh8LCFfKmqxSI3Z7zEfsg89kSDjUdNeSjxg"/>
+<div class="relative z-10">
+<p class="text-[10px] uppercase tracking-widest font-bold text-primary-container mb-2">Inventory Insights</p>
+<p class="text-sm font-medium text-on-surface-variant leading-relaxed">Accessories category has seen a 40% increase in turnover this week.</p>
+<button class="mt-4 text-xs font-bold text-primary-container flex items-center gap-1 hover:underline">
+                                View Full Report
+                                <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

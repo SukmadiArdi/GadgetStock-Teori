@@ -1,0 +1,91 @@
+<!-- pages/inventory.html -->
+<div class="fade-in" style="height:100%; display:flex; flex-direction:column; overflow:hidden;">
+  <div class="inv-header-row" style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:1.5rem;">
+    <div>
+      <p style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.15em;font-weight:700;color:var(--on-surface-variant);">Catalog Overview</p>
+      <h1 style="font-size:1.875rem;font-weight:800;letter-spacing:-0.02em;color:var(--text-blue);">Inventory Management</h1>
+    </div>
+    <div style="display:flex;gap:0.75rem;">
+      <div style="background:#fff;border:1px solid rgba(196,198,207,0.5);border-radius:0.5rem;padding:0.375rem 0.75rem;display:flex;align-items:center;gap:0.5rem;width:200px;">
+        <span class="material-symbols-outlined" style="font-size:1.125rem;color:#94a3b8;">search</span>
+        <input type="text" id="search-filter" placeholder="Search..." style="border:none;outline:none;background:transparent;width:100%;font-size:0.875rem;" oninput="debouncedSearchInv()" />
+      </div>
+      <select id="cat-filter" class="form-input form-select" style="width:auto;" onchange="filterInventory()">
+        <option value="">All Categories</option>
+        <option value="Smartphones">Smartphones</option>
+        <option value="Wearables">Wearables</option>
+        <option value="Audio">Audio</option>
+        <option value="Accessories">Accessories</option>
+        <option value="Tablets">Tablets</option>
+        <option value="Laptops">Laptops</option>
+      </select>
+      <select id="status-filter" class="form-input form-select" style="width:auto;" onchange="filterInventory()">
+        <option value="">All Status</option>
+        <option value="in_stock">In Stock</option>
+        <option value="low_stock">Low Stock</option>
+        <option value="out_of_stock">Out of Stock</option>
+      </select>
+      <button id="btn-add-product" class="btn btn-primary" onclick="navigate('/product-detail')">
+        <span class="material-symbols-outlined">add_box</span>Add Product
+      </button>
+    </div>
+  </div>
+
+  <div class="inv-layout" style="display:grid;grid-template-columns:1fr 22rem;gap:1.5rem; flex:1; overflow:hidden; min-height:0;">
+    <!-- Table Container -->
+    <div class="card" style="display:flex; flex-direction:column; overflow:hidden; min-height:0;">
+      <div style="flex:1; overflow-y:auto;" class="custom-scroll" id="inv-table-scroll" onscroll="sessionStorage.setItem('gs_inv_scroll', this.scrollTop)">
+        <table class="data-table">
+          <thead><tr>
+            <th>SKU</th><th>Brand</th><th>Model</th><th>Category</th>
+            <th style="text-align:right;">Price</th><th style="text-align:center; min-width:100px;">Status</th>
+            <th style="text-align:right;">Stock</th><th id="inv-action-header" style="text-align:center;">Action</th>
+          </tr></thead>
+          <tbody id="inventory-tbody">
+            <tr><td colspan="8" style="text-align:center;padding:3rem;"><div class="skeleton" style="height:1rem;"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination" id="inventory-pagination" style="display:none; flex-shrink:0; border-top:1px solid rgba(196,198,207,0.1); background:var(--surface-container-lowest);">
+        <p class="pagination-info" id="pagination-info">—</p>
+        <div class="pagination-controls" id="pagination-controls"></div>
+      </div>
+    </div>
+
+    <!-- Sidebar Info -->
+    <div style="display:flex;flex-direction:column;gap:1rem; overflow-y:auto; padding-right:0.25rem;" class="custom-scroll inv-sidebar">
+      <!-- Value card -->
+      <div class="card-hero" style="padding:1.5rem; flex-shrink:0;">
+        <p style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-primary-container);margin-bottom:0.5rem;">Inventory Value</p>
+        <h3 id="inv-value" style="font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:1rem;" class="text-rupiah">—</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.1);">
+          <div>
+            <p style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-primary-container);">Low Stock</p>
+            <p id="inv-low" style="font-size:1.25rem;font-weight:700;color:#fff;">—</p>
+          </div>
+          <div>
+            <p style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-primary-container);">Out of Stock</p>
+            <p id="inv-oos" style="font-size:1.25rem;font-weight:700;color:#fff;">—</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick actions -->
+      <div class="card" style="padding:1.25rem; flex-shrink:0;">
+        <h4 style="font-size:0.875rem;font-weight:700;color:var(--text-blue);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;">
+          <span class="material-symbols-outlined" style="font-size:1.125rem;">bolt</span>Quick Actions
+        </h4>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;">
+          <button class="btn btn-ghost btn-sm" onclick="navigate('/low-stock')" style="justify-content:flex-start;">
+            <span class="material-symbols-outlined" style="color:var(--error);">warning</span>View Low Stock Alerts
+          </button>
+          <button id="qa-add-product" class="btn btn-ghost btn-sm" data-role-required="manager" onclick="navigate('/product-detail')" style="justify-content:flex-start;">
+            <span class="material-symbols-outlined">add_circle</span>Add New Product
+          </button>
+          <button id="qa-sales-report" class="btn btn-ghost btn-sm" data-role-required="manager" onclick="navigate('/sales-report')" style="justify-content:flex-start;">
+            <span class="material-symbols-outlined">assessment</span>View Sales Report
+          </button>
+        </div>
+      </div>
+</div>
+<script type="module" src="/js/pages/inventory.js"></script>

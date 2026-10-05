@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#001f3f",
+                    "tertiary": "#110200",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-tertiary-fixed-variant": "#6b3a25",
+                    "on-tertiary-fixed": "#351002",
+                    "outline-variant": "#c4c6cf",
+                    "surface-container": "#edeeef",
+                    "on-background": "#191c1d",
+                    "background": "#f8f9fa",
+                    "surface-bright": "#f8f9fa",
+                    "error": "#ba1a1a",
+                    "inverse-primary": "#afc8f0",
+                    "surface-dim": "#d9dadb",
+                    "on-tertiary-container": "#b5785f",
+                    "tertiary-fixed": "#ffdbce",
+                    "primary-fixed": "#d4e3ff",
+                    "surface-container-high": "#e7e8e9",
+                    "surface-variant": "#e1e3e4",
+                    "on-secondary-fixed-variant": "#474747",
+                    "tertiary-fixed-dim": "#fdb69a",
+                    "outline": "#74777f",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#43474e",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "on-primary-container": "#6f88ad",
+                    "primary": "#000613",
+                    "tertiary-container": "#391303",
+                    "surface": "#f8f9fa",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#2e3132",
+                    "secondary-fixed": "#e4e2e1",
+                    "primary-fixed-dim": "#afc8f0",
+                    "on-secondary-container": "#656464",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#c8c6c6",
+                    "secondary-container": "#e4e2e1",
+                    "on-primary-fixed": "#001c3a",
+                    "on-surface": "#191c1d",
+                    "surface-tint": "#476083",
+                    "secondary": "#5f5e5e",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-slate-100 dark:bg-slate-950 flex flex-col p-4 gap-2 transition-all duration-200 ease-in-out">
+<div class="flex items-center gap-3 px-2 py-4 mb-4">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-white">
+<span class="material-symbols-outlined">point_of_sale</span>
+</div>
+<div>
+<h1 class="font-bold text-blue-950 dark:text-blue-100 text-sm">GadgetStock</h1>
+<p class="font-sans uppercase tracking-widest text-[10px] text-slate-500">Terminal 01</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:text-blue-950 dark:hover:text-blue-200 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:text-blue-950 dark:hover:text-blue-200 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">POS</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-white dark:bg-slate-900 text-blue-950 dark:text-blue-200 rounded-lg shadow-sm font-bold" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:text-blue-950 dark:hover:text-blue-200 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Transactions</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:text-blue-950 dark:hover:text-blue-200 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:text-blue-950 dark:hover:text-blue-200 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Analytics</span>
+</a>
+</nav>
+<div class="mt-auto">
+<button class="w-full py-3 bg-primary-container text-white rounded-lg font-sans uppercase tracking-widest text-[10px] flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+                New Sale
+            </button>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-10 bg-slate-50 dark:bg-slate-900 flex items-center justify-between px-8 py-4">
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold tracking-tighter text-blue-950 dark:text-blue-100">PhonePOS</span>
+<div class="h-6 w-[1px] bg-slate-200 mx-2"></div>
+<h2 class="text-on-surface-variant font-medium tracking-tight">Low Stock Alerts</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container">
+<img alt="Manager Profile" class="w-full h-full object-cover" data-alt="professional portrait of a store manager in a clean modern office setting with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOMnQGMJWh-m8WU_MSqCOFKRm3oks2_pUweMD_aCEWeyaFEdZKjVZIux9JVG-o4BRWHzAFtb6EHDAr-NozQPBPMRjYu-elZW1xyJ2ZIH5AgXyTfkobL2WF8ArEbYZfezXQ0XrcdvAwC8uGejV5JM0mWxhS2GC76u_bLV5XPjnIe202azzVdr-3Mbl2FfefW7B20DjFPfBcfXw4hH_9Gbb7M_WPJj4behlHTkrXMWVoaGf92xBtjRyK-636ZZA1nIP_PteKfkA58Q"/>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="p-8 max-w-7xl mx-auto">
+<!-- Bento Summary Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+<div class="md:col-span-2 bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/15 flex flex-col justify-between">
+<div>
+<p class="font-label uppercase tracking-widest text-[10px] text-on-surface-variant mb-1">Critical Status</p>
+<h3 class="text-4xl font-bold tracking-tight text-primary-container">12 Items</h3>
+</div>
+<p class="text-sm text-error flex items-center gap-1 mt-4">
+<span class="material-symbols-outlined text-sm">warning</span>
+                        Requires immediate replenishment
+                    </p>
+</div>
+<div class="bg-error-container p-6 rounded-xl shadow-sm flex flex-col justify-between">
+<p class="font-label uppercase tracking-widest text-[10px] text-on-error-container mb-1">Stockouts</p>
+<h3 class="text-3xl font-bold tracking-tight text-on-error-container">04</h3>
+<div class="mt-4 h-1 w-full bg-on-error-container/20 rounded-full overflow-hidden">
+<div class="h-full bg-on-error-container w-1/3"></div>
+</div>
+</div>
+<div class="bg-tertiary-fixed p-6 rounded-xl shadow-sm flex flex-col justify-between">
+<p class="font-label uppercase tracking-widest text-[10px] text-on-tertiary-fixed mb-1">Pending Orders</p>
+<h3 class="text-3xl font-bold tracking-tight text-on-tertiary-fixed">08</h3>
+<span class="material-symbols-outlined text-on-tertiary-fixed self-end">local_shipping</span>
+</div>
+</div>
+<!-- List Header with Filters -->
+<div class="flex items-center justify-between mb-6">
+<h4 class="text-lg font-bold text-primary-container tracking-tight">Active Alerts</h4>
+<div class="flex gap-2">
+<button class="px-4 py-2 bg-surface-container-high rounded-lg text-xs font-bold text-primary-container hover:bg-surface-container-highest transition-colors">All Categories</button>
+<button class="px-4 py-2 bg-surface-container-lowest rounded-lg text-xs font-bold text-on-surface-variant hover:bg-surface-container-high transition-colors">Sort: Severity</button>
+</div>
+</div>
+<!-- Low Stock Panel Items -->
+<div class="space-y-4">
+<!-- Item 1 -->
+<div class="group flex items-center bg-surface-container-lowest rounded-xl p-4 transition-all hover:shadow-md border border-transparent hover:border-outline-variant/20">
+<div class="w-16 h-16 rounded-lg bg-surface-container-low overflow-hidden flex-shrink-0">
+<img alt="Smartphone Unit" class="w-full h-full object-cover" data-alt="close up high resolution product shot of a sleek modern smartphone with metallic finish on a white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAAYjyGdJPsSjZ6RnHEQUy1TqHBeXLzvUOJO6l-nVlRtcsXCAu3-WL3tmmt6fhlbvEhOyf3UaS9HboM_1fBcj_mpmImgElHk_s_mn_A3XYUgZm9QoxocpzJEaa4IufnM6KQdUk61UmyKi56It1i_XOernIud79Z1T6NciEplHDrpmcPSbScGjZfL3Mnth-uE_-1CQwn17MSZfvad0pBq1zWJqUe5E7fbWG8qgkMq-EdGDfW1njb6_U67iJpYMRID0cUXpYARHEbw"/>
+</div>
+<div class="ml-6 flex-1">
+<div class="flex items-center gap-2 mb-1">
+<h5 class="text-sm font-bold text-primary-container">iPhone 15 Pro, 256GB</h5>
+<span class="px-2 py-0.5 bg-error-container text-on-error-container text-[10px] font-bold rounded-full uppercase">Critical</span>
+</div>
+<p class="text-xs text-on-surface-variant">SKU: IP15-P-256-GR | Category: Mobile Devices | Price: Rp 21.000.000</p>
+</div>
+<div class="px-8 text-center border-x border-outline-variant/15 mx-4">
+<p class="font-label uppercase tracking-widest text-[10px] text-on-surface-variant mb-1">Qty Remaining</p>
+<p class="text-xl font-bold text-error">02 <span class="text-xs text-on-surface-variant font-normal">/ 50</span></p>
+</div>
+<div class="flex gap-3 ml-4">
+<button class="px-4 py-2.5 bg-primary-container text-white rounded-lg text-xs font-bold flex items-center gap-2 hover:bg-primary transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm">reorder</span>
+                            Quick Reorder
+                        </button>
+<button class="p-2.5 bg-surface-container-low text-on-surface-variant rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-sm">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="group flex items-center bg-surface-container-lowest rounded-xl p-4 transition-all hover:shadow-md border border-transparent hover:border-outline-variant/20">
+<div class="w-16 h-16 rounded-lg bg-surface-container-low overflow-hidden flex-shrink-0">
+<img alt="Audio Device" class="w-full h-full object-cover" data-alt="studio photography of wireless noise-cancelling headphones in matte black finish on a minimalist surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl08mHdL5-xo4XdyV1loS89omYFqQzMxfMUSeao2EN8aXNrjgTil3z3QDwVXH_paQhRdbH8xGRK4NkM4qY-pcglPwrb5_TvOoQIUEv3r7VC5ZFPGqIxZJCluaTXpf7TOQ0MgpVPUWUSuKmcf4xBLrtXIgyoxUFLSQtgVaz5LfOn0HGPUcH0rxezwCbSTUrPOmOfrVjgGPdAH_kGlSPPi--UVpUbDMibOIPLGxqZncG2qEkjAkhhctYn4__ZRrZJEj-TADhdskRAg"/>
+</div>
+<div class="ml-6 flex-1">
+<div class="flex items-center gap-2 mb-1">
+<h5 class="text-sm font-bold text-primary-container">WH-1000XM5 Wireless Headphones</h5>
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold rounded-full uppercase">Low Stock</span>
+</div>
+<p class="text-xs text-on-surface-variant">SKU: SNY-WH5-BLK | Category: Audio | Price: Rp 5.500.000</p>
+</div>
+<div class="px-8 text-center border-x border-outline-variant/15 mx-4">
+<p class="font-label uppercase tracking-widest text-[10px] text-on-surface-variant mb-1">Qty Remaining</p>
+<p class="text-xl font-bold text-tertiary-container">05 <span class="text-xs text-on-surface-variant font-normal">/ 30</span></p>
+</div>
+<div class="flex gap-3 ml-4">
+<button class="px-4 py-2.5 bg-primary-container text-white rounded-lg text-xs font-bold flex items-center gap-2 hover:bg-primary transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm">reorder</span>
+                            Quick Reorder
+                        </button>
+<button class="p-2.5 bg-surface-container-low text-on-surface-variant rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-sm">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Item 3 (Out of Stock) -->
+<div class="group flex items-center bg-surface-container p-4 rounded-xl opacity-80 border border-transparent">
+<div class="w-16 h-16 rounded-lg bg-surface-dim overflow-hidden flex-shrink-0 grayscale">
+<img alt="Laptop Unit" class="w-full h-full object-cover" data-alt="professional workspace featuring a high-end laptop on a clean desk with soft architectural shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxYYTsyvp9gwRwNsipgNggRi2ii4yqoaMWB_nLZlM2XRS3nj7_T_O7YwBhkndnHgdNeNl_BM3BF6csXRQX2VvfksUnjfKLR3YINIo8C4qW5qjQKbozIcq8lC_JItk8ifWvMD4dqHqUVEyZlPVfwGqMOcJ-TRUpFvN2IJ-E9_ZOSZaekrB0yPS-ENoGQ1Fss-vIjfBVW6g36rhafKZS3ZgUmnu6ARzsfeu1adblEu7Kb9VKHAjQIVxLVTiysChfCsiVYEuqsbLwvg"/>
+</div>
+<div class="ml-6 flex-1">
+<div class="flex items-center gap-2 mb-1">
+<h5 class="text-sm font-bold text-slate-500">MacBook Air M2, 13-inch</h5>
+<span class="px-2 py-0.5 bg-inverse-surface text-white text-[10px] font-bold rounded-full uppercase">Out of Stock</span>
+</div>
+<p class="text-xs text-slate-400">SKU: MBA-M2-13-SLV | Category: Laptops | Price: Rp 17.000.000</p>
+</div>
+<div class="px-8 text-center border-x border-outline-variant/30 mx-4">
+<p class="font-label uppercase tracking-widest text-[10px] text-slate-500 mb-1">Qty Remaining</p>
+<p class="text-xl font-bold text-slate-500">00 <span class="text-xs text-slate-400 font-normal">/ 15</span></p>
+</div>
+<div class="flex gap-3 ml-4">
+<button class="px-4 py-2.5 bg-error text-white rounded-lg text-xs font-bold flex items-center gap-2 hover:bg-on-error-container transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm">priority_high</span>
+                            Urgent Restock
+                        </button>
+<button class="p-2.5 bg-surface-container-low text-on-surface-variant rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-sm">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="group flex items-center bg-surface-container-lowest rounded-xl p-4 transition-all hover:shadow-md border border-transparent hover:border-outline-variant/20">
+<div class="w-16 h-16 rounded-lg bg-surface-container-low overflow-hidden flex-shrink-0">
+<img alt="Watch Unit" class="w-full h-full object-cover" data-alt="close up of a luxury white smartwatch on a clean clinical background with soft diffused lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMqc266_7XGr4Ld5pJ6U3Xr6XS5aGS6R9_fA01CMgxN_OSoFACw7NWL2_qXbjs4-Ds6dgyGD2I5tbaz0tPjZAp_1Sfu08h2exYgFJ01gRqUw5iqyaAMKjJ-f6eBWd587Io_Xk_tJkPau3WZ7QbEaVVMtIndsx5CGM9qE1Z-O2steCJVLt680FdoTnVgxQKnD__SAH7mHFSoil2MWXKrFdXn0QFZAHrd__87S3hufbdRpwtBZKhi5qZAaH49Mai839Q30sgT-WXsQ"/>
+</div>
+<div class="ml-6 flex-1">
+<div class="flex items-center gap-2 mb-1">
+<h5 class="text-sm font-bold text-primary-container">Smart Watch Series 9</h5>
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold rounded-full uppercase">Low Stock</span>
+</div>
+<p class="text-xs text-on-surface-variant">SKU: SWT-S9-45-WHT | Category: Wearables | Price: Rp 6.800.000</p>
+</div>
+<div class="px-8 text-center border-x border-outline-variant/15 mx-4">
+<p class="font-label uppercase tracking-widest text-[10px] text-on-surface-variant mb-1">Qty Remaining</p>
+<p class="text-xl font-bold text-tertiary-container">08 <span class="text-xs text-on-surface-variant font-normal">/ 40</span></p>
+</div>
+<div class="flex gap-3 ml-4">
+<button class="px-4 py-2.5 bg-primary-container text-white rounded-lg text-xs font-bold flex items-center gap-2 hover:bg-primary transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm">reorder</span>
+                            Quick Reorder
+                        </button>
+<button class="p-2.5 bg-surface-container-low text-on-surface-variant rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-sm">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bulk Actions Float -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 glass-panel px-8 py-4 rounded-full shadow-2xl border border-white/20 flex items-center gap-6 z-20">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+<p class="text-xs font-bold text-primary-container uppercase tracking-tight">Bulk Operations Available</p>
+</div>
+<div class="h-4 w-[1px] bg-outline-variant"></div>
+<div class="flex gap-3">
+<button class="px-6 py-2 bg-primary-container text-white rounded-full text-xs font-bold hover:bg-primary transition-all active:scale-95">Reorder All Critical</button>
+<button class="px-6 py-2 bg-surface-container-highest text-on-surface-variant rounded-full text-xs font-bold hover:bg-surface-dim transition-all">Export Inventory Report</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB (Hidden on this detail-rich screen as per suppression rules) -->
+</body></html>

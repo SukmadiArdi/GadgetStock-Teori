@@ -1,0 +1,105 @@
+<!-- pages/dashboard.html -->
+<div class="fade-in">
+  <!-- Page Header -->
+  <div style="margin-bottom:2rem;">
+    <p style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.15em;font-weight:700;color:var(--on-surface-variant);margin-bottom:0.25rem;">Overview</p>
+    <h1 style="font-size:1.875rem;font-weight:800;letter-spacing:-0.02em;color:var(--text-blue);" id="dash-greeting">Good Morning, Alex 👋</h1>
+    <p style="font-size:0.8125rem;color:var(--on-surface-variant);margin-top:0.25rem;" id="dash-date"></p>
+  </div>
+
+  <!-- Hero KPI Bento Grid -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;" id="kpi-grid">
+    <!-- Revenue Card (2 cols) -->
+    <div class="card-hero" style="grid-column:span 2;padding:2rem;min-height:13rem;display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <p style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--on-primary-container);margin-bottom:0.5rem;">Total Revenue (Today)</p>
+        <h2 id="kpi-revenue" style="font-size:2.75rem;font-weight:800;letter-spacing:-0.03em;color:#fff;" class="text-rupiah">—</h2>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <div id="kpi-rev-badge" style="background:rgba(255,255,255,0.1);padding:0.25rem 0.75rem;border-radius:9999px;display:flex;align-items:center;gap:0.25rem;">
+          <span class="material-symbols-outlined" style="font-size:1rem;color:#4ade80;">trending_up</span>
+          <span id="kpi-rev-pct" style="font-size:0.75rem;font-weight:600;color:#fff;">+0%</span>
+        </div>
+        <span style="font-size:0.75rem;color:var(--on-primary-container);font-style:italic;">vs yesterday</span>
+      </div>
+    </div>
+
+    <!-- Orders Card -->
+    <div class="card" style="padding:1.5rem;display:flex;flex-direction:column;justify-content:space-between;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div style="background:var(--surface-container-high);padding:0.5rem;border-radius:0.5rem;">
+          <span class="material-symbols-outlined" style="color:var(--primary-container);">shopping_bag</span>
+        </div>
+        <p style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);font-weight:700;">Daily Orders</p>
+      </div>
+      <div>
+        <h3 id="kpi-orders" style="font-size:2rem;font-weight:800;letter-spacing:-0.02em;color:var(--on-surface);">—</h3>
+        <p style="font-size:0.75rem;color:var(--on-surface-variant);margin-top:0.25rem;">transactions today</p>
+      </div>
+    </div>
+
+    <!-- Stock Card -->
+    <div class="card" style="padding:1.5rem;display:flex;flex-direction:column;justify-content:space-between;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div style="background:var(--surface-container-high);padding:0.5rem;border-radius:0.5rem;">
+          <span class="material-symbols-outlined" style="color:var(--primary-container);">inventory</span>
+        </div>
+        <p style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-surface-variant);font-weight:700;">Stock Value</p>
+      </div>
+      <div>
+        <h3 id="kpi-stock" style="font-size:2rem;font-weight:800;letter-spacing:-0.02em;color:var(--on-surface);" class="text-rupiah">—</h3>
+        <p id="kpi-skus" style="font-size:0.75rem;color:var(--on-surface-variant);margin-top:0.25rem;">— active SKUs</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detail Grid -->
+  <div class="dash-detail-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;">
+
+    <!-- Critical Stock Alerts (2 cols) -->
+    <div style="grid-column:span 2;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+        <h2 style="font-size:1rem;font-weight:700;color:var(--text-blue);">Critical Stock Alerts</h2>
+        <button class="btn btn-ghost btn-sm" onclick="navigate('/low-stock')" style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;">
+          View All <span class="material-symbols-outlined" style="font-size:0.875rem;">arrow_forward</span>
+        </button>
+      </div>
+      <div class="card" style="overflow:hidden;">
+        <table class="data-table" id="stock-alerts-table">
+          <thead>
+            <tr><th>Product</th><th>SKU</th><th>Stock</th><th>Status</th><th></th></tr>
+          </thead>
+          <tbody id="stock-alerts-body">
+            <tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--outline);">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Recent Sales -->
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+        <h2 style="font-size:1rem;font-weight:700;color:var(--text-blue);">Recent Sales</h2>
+        <button onclick="navigate('/transactions')" style="background:none;border:none;cursor:pointer;color:var(--on-surface-variant);">
+          <span class="material-symbols-outlined">more_horiz</span>
+        </button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;max-height:16.8rem;overflow-y:auto;padding-right:0.25rem;" id="recent-sales-list" class="custom-scroll">
+        <div class="skeleton" style="height:5rem;border-radius:0.75rem;"></div>
+        <div class="skeleton" style="height:5rem;border-radius:0.75rem;"></div>
+        <div class="skeleton" style="height:5rem;border-radius:0.75rem;"></div>
+      </div>
+
+      <!-- Audit CTA -->
+      <div class="card" style="margin-top:1.5rem;padding:1.5rem;border:2px dashed var(--outline-variant);background:var(--secondary-container);position:relative;overflow:hidden;">
+        <span class="material-symbols-outlined" style="position:absolute;right:-1rem;bottom:-1rem;font-size:5rem;color:rgba(0,0,0,0.05);transform:rotate(-12deg);">inventory_2</span>
+        <h4 style="font-size:0.875rem;font-weight:700;color:var(--on-secondary-container);margin-bottom:0.5rem;">Run Quick Audit?</h4>
+        <p style="font-size:0.75rem;color:var(--on-secondary-container);opacity:0.7;margin-bottom:1rem;">Validate physical stock vs digital records.</p>
+        <button class="btn btn-primary btn-sm" onclick="navigate('/inventory')">Start Audit</button>
+      </div>
+    </div>
+
+  </div><!-- /detail grid -->
+</div>
+
+<script type="module" src="/js/pages/dashboard.js"></script>

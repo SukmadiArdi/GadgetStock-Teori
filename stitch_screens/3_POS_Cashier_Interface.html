@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PhonePOS - Terminal 01</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#001f3f",
+                    "tertiary": "#110200",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-tertiary-fixed-variant": "#6b3a25",
+                    "on-tertiary-fixed": "#351002",
+                    "outline-variant": "#c4c6cf",
+                    "surface-container": "#edeeef",
+                    "on-background": "#191c1d",
+                    "background": "#f8f9fa",
+                    "surface-bright": "#f8f9fa",
+                    "error": "#ba1a1a",
+                    "inverse-primary": "#afc8f0",
+                    "surface-dim": "#d9dadb",
+                    "on-tertiary-container": "#b5785f",
+                    "tertiary-fixed": "#ffdbce",
+                    "primary-fixed": "#d4e3ff",
+                    "surface-container-high": "#e7e8e9",
+                    "surface-variant": "#e1e3e4",
+                    "on-secondary-fixed-variant": "#474747",
+                    "tertiary-fixed-dim": "#fdb69a",
+                    "outline": "#74777f",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#43474e",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "on-primary-container": "#6f88ad",
+                    "primary": "#000613",
+                    "tertiary-container": "#391303",
+                    "surface": "#f8f9fa",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#2e3132",
+                    "secondary-fixed": "#e4e2e1",
+                    "primary-fixed-dim": "#afc8f0",
+                    "on-secondary-container": "#656464",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#c8c6c6",
+                    "secondary-container": "#e4e2e1",
+                    "on-primary-fixed": "#001c3a",
+                    "on-surface": "#191c1d",
+                    "surface-tint": "#476083",
+                    "secondary": "#5f5e5e",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e1e3e4; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex overflow-hidden h-screen">
+<!-- SideNavBar (Shared Component) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-slate-100 dark:bg-slate-950 flex flex-col p-4 gap-2 h-full z-50">
+<div class="flex items-center gap-3 px-2 mb-8">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">storefront</span>
+</div>
+<div>
+<h2 class="font-bold text-blue-950 dark:text-blue-100 font-headline leading-tight">GadgetStock</h2>
+<p class="font-sans uppercase tracking-widest text-[10px] text-slate-500">Terminal 01</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<div class="flex items-center gap-3 p-3 text-slate-600 dark:text-slate-400 hover:text-blue-950 dark:hover:text-blue-200 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out cursor-pointer font-sans uppercase tracking-widest text-[10px]">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</div>
+<div class="flex items-center gap-3 p-3 bg-white dark:bg-slate-900 text-blue-950 dark:text-blue-200 rounded-lg shadow-sm font-bold font-sans uppercase tracking-widest text-[10px] cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">point_of_sale</span>
+<span>POS</span>
+</div>
+<div class="flex items-center gap-3 p-3 text-slate-600 dark:text-slate-400 hover:text-blue-950 dark:hover:text-blue-200 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out cursor-pointer font-sans uppercase tracking-widest text-[10px]">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Inventory</span>
+</div>
+<div class="flex items-center gap-3 p-3 text-slate-600 dark:text-slate-400 hover:text-blue-950 dark:hover:text-blue-200 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out cursor-pointer font-sans uppercase tracking-widest text-[10px]">
+<span class="material-symbols-outlined">history</span>
+<span>Transactions</span>
+</div>
+<div class="flex items-center gap-3 p-3 text-slate-600 dark:text-slate-400 hover:text-blue-950 dark:hover:text-blue-200 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out cursor-pointer font-sans uppercase tracking-widest text-[10px]">
+<span class="material-symbols-outlined">assessment</span>
+<span>Reports</span>
+</div>
+<div class="flex items-center gap-3 p-3 text-slate-600 dark:text-slate-400 hover:text-blue-950 dark:hover:text-blue-200 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out cursor-pointer font-sans uppercase tracking-widest text-[10px]">
+<span class="material-symbols-outlined">analytics</span>
+<span>Analytics</span>
+</div>
+</nav>
+<button class="mt-auto bg-primary-container text-on-primary py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-semibold hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="text-sm">New Sale</span>
+</button>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col h-full bg-surface overflow-hidden">
+<!-- TopNavBar (Shared Component) -->
+<header class="w-full top-0 sticky bg-slate-50 dark:bg-slate-900 flex items-center justify-between px-6 py-3 w-full z-40">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary-container transition-all" placeholder="Search products, SKUs, or series..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<div class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors rounded-full relative cursor-pointer">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</div>
+<div class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors rounded-full cursor-pointer">
+<span class="material-symbols-outlined">settings</span>
+</div>
+</div>
+<div class="bg-slate-200 dark:bg-slate-800 h-8 w-[1px]"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right">
+<p class="text-xs font-bold text-blue-950 dark:text-blue-100 leading-none">Alex Sterling</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-widest">Manager</p>
+</div>
+<img alt="Manager Profile" class="w-9 h-9 rounded-full object-cover border-2 border-white shadow-sm" data-alt="Professional portrait of a retail manager in a clean studio setting with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiAXyjed0oLAkpc8dF8YSboxCqi4FJS9Y4nRKOaX1Nt0N1lBI3_opZzmL6mlsLphSiaLJN892MUZHyry0QJH65GcmbiE0FZfKNNAmEYaZgHmMd1icRRufb6N_aL4StIsgyeSKIJul0EgvReEJhu3zlWYARaGdqww5Z7ChLkKfao8ieo1u_2E6XIOWZNECGfk6RUvC_ymQ_iApD6zKuSAYzi74TY5gT9sXHT9NEbH-xU7CkjX244KbZUojIRGDJ-UVBOZhzF2fFzg"/>
+</div>
+</div>
+</header>
+<!-- Split Screen Layout -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Left Side: Product Grid -->
+<section class="flex-[1.5] p-6 overflow-y-auto custom-scrollbar">
+<div class="flex items-center justify-between mb-8">
+<div class="space-y-1">
+<h1 class="text-3xl font-headline font-extrabold tracking-tight text-primary-container">Inventory Selection</h1>
+<p class="text-xs uppercase tracking-widest text-on-surface-variant font-medium">Categorized by series &amp; accessories</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 rounded-full bg-white shadow-sm text-xs font-bold text-primary-container border border-outline-variant/10">All Items</button>
+<button class="px-4 py-2 rounded-full text-xs font-medium text-on-surface-variant hover:bg-white transition-all">Phones</button>
+<button class="px-4 py-2 rounded-full text-xs font-medium text-on-surface-variant hover:bg-white transition-all">Audio</button>
+<button class="px-4 py-2 rounded-full text-xs font-medium text-on-surface-variant hover:bg-white transition-all">Protection</button>
+</div>
+</div>
+<!-- Bento Grid of Products -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Featured Product Card -->
+<div class="col-span-1 md:col-span-2 row-span-1 bg-primary-container rounded-xl p-6 text-on-primary flex gap-6 relative overflow-hidden group cursor-pointer active:scale-[0.98] transition-transform">
+<div class="flex-1 flex flex-col justify-between z-10">
+<div>
+<span class="bg-surface-tint/30 text-[10px] px-2 py-1 rounded-full uppercase tracking-tighter font-bold">New Arrival</span>
+<h3 class="text-2xl font-bold mt-2 font-headline">Nebula Pro 15</h3>
+<p class="text-on-primary-container text-sm mt-1">256GB / Galactic Gray</p>
+</div>
+<div class="mt-4">
+<p class="text-xl font-bold font-headline">Rp 12.990.000</p>
+<p class="text-[10px] text-on-primary-container opacity-60">12 units in stock</p>
+</div>
+</div>
+<div class="flex-1 relative">
+<img alt="Nebula Pro 15" class="w-full h-48 object-contain transform group-hover:scale-110 transition-transform duration-500" data-alt="Modern smartphone floating in dark studio environment with sleek metallic edges and glowing screen reflection" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9fktg7I_e6OGv7W1tX1pe3mvIe_kH2TJAQ5iwEhJOQ5ti89mtD-2E-SeOVAk9TFNa6egk3s0WGBLyJkJVwUkuQVtyT-XPbifiHh7AID9XbYzXjYhqprBl1rFL87-ZU00MmUividkRZvuryVqIGJONnQqapBYC1ZjYDeAKpM5OvuRjF4DIR_oUkc8DPgJa0st22989Oxmp_4NXS9svnNiPae9wsuGRFoV_YVDSBA8jQKkIyiA6XrdceZk7WRnaCWSVrVKk6UyisA"/>
+</div>
+<div class="absolute -right-4 -bottom-4 w-32 h-32 bg-white/5 rounded-full blur-3xl"></div>
+</div>
+<!-- Regular Product Card -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer active:scale-[0.98] transition-transform">
+<div class="h-32 bg-surface-container-low rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+<img alt="Zenith Buds" class="w-full h-full object-cover" data-alt="Premium wireless headphones on a clean minimalist background with architectural shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBf7H33lX5R5u1hEQNjLKzQPmx02NWKe9r8p_NPcs5eHtCwkuqAfRIEpJH_ttvhuGAdujU2bdbuLeR1cbNZ5qEVtBPc-G1zG1GmOJUttVZdqT85dUt_I4sl7eiqAve5CuW0naBrtOP1nSGT298M04jff8pSOXRsTyVugw_d3UD0lBz7Jd21Nsp1flPp2yhYp3PNUVUfO8ZAL7aKUPJuCnvx_LREQRhiMWJfs6tg8OHK3F_eDLPryAdBrBpstAGi3F02yr0c6KM8kA"/>
+</div>
+<h4 class="font-bold text-primary-container text-sm">Zenith Wireless Buds</h4>
+<div class="flex justify-between items-center mt-2">
+<span class="text-sm font-semibold">Rp 2.490.000</span>
+<span class="text-[10px] bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded-full font-bold">LOW STOCK</span>
+</div>
+</div>
+<!-- Regular Product Card -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer active:scale-[0.98] transition-transform">
+<div class="h-32 bg-surface-container-low rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+<img alt="Origin Case" class="w-full h-full object-cover" data-alt="Eco-friendly minimalist smartphone case made of recycled wood texture and soft-touch plastic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDspurIMe-N9aEUcD_axIqBH8pYydQw1gEpifwAoiT1pmiKgDmsu7fv3KPwdthpVUHEGay3a1nIC8EwUyTl6n-lEUL9GqctW9u_tUIAWV0WLyXG8TwW4rhrOe2PZByTXl407SUPKZFO6gNApBTw0RIEK4erJN95KwLh6Q51Mi6WYaCQTvweBrIKKLyOBraRSPHmy9AgtYwMEg9-CMvIPRMNjGJtFBduPYfuYjlGyO16cDK64IcP9PDWAUCjHeULd1eLNirDG3WrTw"/>
+</div>
+<h4 class="font-bold text-primary-container text-sm">Origin Eco-Case 15</h4>
+<div class="flex justify-between items-center mt-2">
+<span class="text-sm font-semibold">Rp 450.000</span>
+<span class="text-[10px] bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full font-bold">45 STOCK</span>
+</div>
+</div>
+<!-- Regular Product Card -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer active:scale-[0.98] transition-transform">
+<div class="h-32 bg-surface-container-low rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+<img alt="Pad Air" class="w-full h-full object-cover" data-alt="Modern tablet device showing a vibrant screen with artistic wallpaper on a clean desktop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCf9l3Qf7MwBIo09ib5ZiG8nGT-7J2zLVm7tn-CjKkKwLQYGB4NUutHC9nO9TBFbuvsaEBf-BeY5FPHHcqUt7fjI4-UK7xdt4i1IDNklW5LXsUIi-n_Nt1mQRCVUT-qXKFsWnFa3vcefLrrya7jITV6FC-6mixHUAP-wEBaETk4GoumwjVTwJQyyRu4DapEISO3OKR6Wc7biniTKDyLNXH0sftXQCpX6paVNOmOYHevZgTsGa94of89EiG8fA1ZwAtHjbutPFN3FA"/>
+</div>
+<h4 class="font-bold text-primary-container text-sm">Pad Air 11" M2</h4>
+<div class="flex justify-between items-center mt-2">
+<span class="text-sm font-semibold">Rp 5.990.000</span>
+<span class="text-[10px] bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full font-bold">8 STOCK</span>
+</div>
+</div>
+<!-- Regular Product Card -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer active:scale-[0.98] transition-transform">
+<div class="h-32 bg-surface-container-low rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+<img alt="Astra Fold" class="w-full h-full object-cover" data-alt="Foldable smartphone partially open against a deep navy background with futuristic highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3vn7KJyosbwSIQKvYSZuSU8zJT08vOqjs4xQDm3xk8KbjBFSenvzwi8J-ymko9iUagUcpF9z2P9kORRiVK2sSmBbTr8W-Vw5RZ5VRg948EruzOC3qHVwsf8EzXOpqXvmeENurr9-z-J4f6IQMv2yGG9F69tdrbL6Z3fRTrgvMo2eD2V47mNqGlryBSVdgCEwip1el4JHfrZnN-0MujVfMbvSGeX3DcWrnpXXGG8ElQFtDb69fmVviaMhIeCDQ9eifXiA_5CG3wQ"/>
+</div>
+<h4 class="font-bold text-primary-container text-sm">Astra Fold 5G</h4>
+<div class="flex justify-between items-center mt-2">
+<span class="text-sm font-semibold">Rp 17.990.000</span>
+<span class="text-[10px] bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full font-bold">2 STOCK</span>
+</div>
+</div>
+<!-- Regular Product Card -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer active:scale-[0.98] transition-transform">
+<div class="h-32 bg-surface-container-low rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+<img alt="Nexus Watch" class="w-full h-full object-cover" data-alt="High-end smartwatch with a fabric strap and clean digital interface display" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmEUX3Lmd_NWX9HZO7DzIjO1xglQEw7hPAt-ITdOoTtLE8OJphlBphkfciQBqGcecWG4oWiq5uF6rx-XNNC3-bWYgoyK_-pzb04oHN9mxXUP_HZpeWvvsOZDMtnvhwvR9H7Qn2kFe4Yu9Z9oqc10AC3mASJBxmxNRdpR8He-ucUwDoNReDnKE80nzW2__UaGf2hN8bVhvsOv_helLXiml3ssSy3DRqeKGkpLoJ22yyizxk4c_Bj0o8osrJDRZdr7FCiEcGKbpQDw"/>
+</div>
+<h4 class="font-bold text-primary-container text-sm">Nexus Watch Ultra</h4>
+<div class="flex justify-between items-center mt-2">
+<span class="text-sm font-semibold">Rp 7.990.000</span>
+<span class="text-[10px] bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full font-bold">15 STOCK</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Side: Transaction Cart -->
+<section class="flex-1 bg-surface-container-high flex flex-col border-l border-outline-variant/10 shadow-[-10px_0_30px_rgba(0,0,0,0.02)] z-30">
+<div class="p-6 border-b border-outline-variant/10 bg-surface-container-lowest/50 backdrop-blur-md">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-headline font-bold text-primary-container">Current Order</h2>
+<div class="bg-primary-container/10 text-primary-container text-[10px] px-2 py-1 rounded-lg font-bold tracking-widest uppercase">ID: 884-A</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 py-2 px-3 bg-surface-container-lowest rounded-lg border border-outline-variant/20 flex items-center justify-center gap-2 text-xs font-bold text-on-surface-variant hover:bg-white transition-all">
+<span class="material-symbols-outlined text-sm">person_add</span>
+                            Add Customer
+                        </button>
+<button class="p-2 bg-surface-container-lowest rounded-lg border border-outline-variant/20 text-on-surface-variant hover:bg-white transition-all">
+<span class="material-symbols-outlined text-sm">more_horiz</span>
+</button>
+</div>
+</div>
+<!-- Cart Items List -->
+<div class="flex-1 overflow-y-auto p-4 custom-scrollbar space-y-3">
+<!-- Cart Item -->
+<div class="bg-surface-container-lowest rounded-xl p-4 flex gap-4 relative group">
+<div class="w-16 h-16 bg-surface-container-low rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Nebula Pro 15 smartphone" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLR8XKecHE3U_UbhkAoUaVzfw_Y4911GpskuTOUKtXarKKxIQYwO-VHye9jkTM80tpKtxYKyJn6nT1Bqq154aNTNlphrmMSSwRmaJUXKaWklh-wXACFZNWnVuUlNQh21PT-0ilJp9a3Be5TAO3Bx_L5UjnL2ZkwPaw-4t-x2-_ZxZxWwv8j3kMuCt4oi9TXPtJQClteUG8uJcM4xQ_f4FdcxSGkH5xSQzkM21TgS_UQ8wndydPNTn20IeHnYoCFkq1CJhO2y_ARA"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h5 class="font-bold text-sm text-primary-container">Nebula Pro 15</h5>
+<span class="font-bold text-sm">Rp 12.990.000</span>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-1 uppercase tracking-wider">256GB / Galactic Gray</p>
+<div class="flex items-center gap-4 mt-3">
+<div class="flex items-center bg-surface-container-low rounded-lg px-2 py-1">
+<button class="material-symbols-outlined text-xs hover:text-primary transition-colors">remove</button>
+<span class="mx-3 text-xs font-bold">1</span>
+<button class="material-symbols-outlined text-xs hover:text-primary transition-colors">add</button>
+</div>
+<button class="text-[10px] font-bold text-error uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Remove</button>
+</div>
+</div>
+</div>
+<!-- Cart Item -->
+<div class="bg-surface-container-lowest rounded-xl p-4 flex gap-4 relative group">
+<div class="w-16 h-16 bg-surface-container-low rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Zenith Buds" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDibJyr9HFcaUZJ82KzVPxyh1iFxGL8KjlEj4Zu223XM7l8qarHTutp08K6OC2-OEs5iohGcgrQzFahEh7w25BY-1__HTh0U0bf3RGuKgJC6kUkmnAZnunfmKcINVK0LTuUBGcHgFW6umqB5wJ6bvh8TPh5Azxkpw86Q70283jY_0ScSa13nb_3R9GysoyQpCeSAGunblgt8PyGxWmTteNU99QVL2IYsQgU0TSoQhhjIlubjFc0dasTPhMq2TqtyLa3Mb06Wqcw2w"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h5 class="font-bold text-sm text-primary-container">Zenith Wireless Buds</h5>
+<span class="font-bold text-sm">Rp 2.490.000</span>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-1 uppercase tracking-wider">Phantom Black</p>
+<div class="flex items-center gap-4 mt-3">
+<div class="flex items-center bg-surface-container-low rounded-lg px-2 py-1">
+<button class="material-symbols-outlined text-xs hover:text-primary transition-colors">remove</button>
+<span class="mx-3 text-xs font-bold">1</span>
+<button class="material-symbols-outlined text-xs hover:text-primary transition-colors">add</button>
+</div>
+<button class="text-[10px] font-bold text-error uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Remove</button>
+</div>
+</div>
+</div>
+<div class="pt-4 flex flex-col items-center justify-center opacity-30 select-none">
+<div class="w-24 h-1 bg-outline-variant/30 rounded-full mb-6"></div>
+<span class="material-symbols-outlined text-4xl mb-2">shopping_bag</span>
+<p class="text-[10px] uppercase tracking-widest font-bold">Additional items will appear here</p>
+</div>
+</div>
+<!-- Live Total Display (The "Fold" Component) -->
+<div class="bg-surface-container-highest rounded-t-3xl p-8 shadow-[0_-20px_40px_rgba(0,0,0,0.05)]">
+<div class="space-y-4 mb-8">
+<div class="flex justify-between text-xs text-on-surface-variant">
+<span class="font-medium">Subtotal</span>
+<span class="font-bold">Rp 15.480.000</span>
+</div>
+<div class="flex justify-between text-xs text-on-surface-variant">
+<span class="font-medium">Tax (8.5%)</span>
+<span class="font-bold">Rp 1.315.800</span>
+</div>
+<div class="pt-4 border-t border-outline-variant/20 flex justify-between items-end">
+<div class="space-y-1">
+<p class="text-[10px] uppercase tracking-widest font-bold text-primary-container opacity-50">Grand Total</p>
+<p class="text-4xl font-headline font-extrabold tracking-tight text-primary-container">Rp 16.795.800</p>
+</div>
+<div class="text-right">
+<span class="bg-tertiary-container text-on-tertiary-container text-[10px] px-2 py-1 rounded-md font-bold">LOYALTY +42 pts</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<button class="bg-secondary-container text-on-secondary-container py-4 rounded-xl flex items-center justify-center gap-2 font-bold text-xs uppercase tracking-widest hover:brightness-95 active:scale-[0.97] transition-all">
+<span class="material-symbols-outlined">payments</span>
+                            Split
+                        </button>
+<button class="bg-primary-container text-on-primary py-4 rounded-xl flex items-center justify-center gap-2 font-bold text-xs uppercase tracking-widest hover:opacity-90 active:scale-[0.97] transition-all shadow-lg shadow-primary-container/20">
+                            Checkout
+                            <span class="material-symbols-outlined">arrow_forward_ios</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

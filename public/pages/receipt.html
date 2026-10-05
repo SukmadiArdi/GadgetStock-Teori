@@ -1,0 +1,128 @@
+<!-- pages/receipt.html - Success/Receipt Screen -->
+<div class="fade-in receipt-container" style="max-width:28rem;margin:0 auto;padding:1rem;">
+
+  <!-- Success Icon (Only for new sales) -->
+  <div id="success-header" class="no-print" style="text-align:center;margin-bottom:2rem;">
+    <div style="width:5rem;height:5rem;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 8px 24px rgba(34,197,94,0.35);animation:scaleIn 0.4s cubic-bezier(0.34,1.56,0.64,1);">
+      <span class="material-symbols-outlined icon-filled" style="font-size:2.5rem;color:#fff;">check_circle</span>
+    </div>
+    <h1 style="font-size:1.5rem;font-weight:800;color:var(--text-blue);">Payment Successful!</h1>
+    <p style="font-size:0.875rem;color:var(--on-surface-variant);margin-top:0.25rem;" id="receipt-txn-num">—</p>
+  </div>
+
+  <!-- History Header (Only for old sales) -->
+  <div id="history-header" class="no-print" style="display:none; margin-bottom:1.5rem;">
+    <div style="display:flex; align-items:center; gap:1rem;">
+      <button class="btn btn-ghost btn-sm" onclick="navigate('/transactions')">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </button>
+      <div>
+        <h1 style="font-size:1.25rem;font-weight:800;color:var(--text-blue);">Transaction Details</h1>
+        <p style="font-size:0.75rem;color:var(--on-surface-variant);" id="history-txn-num">—</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Receipt Card -->
+  <div class="card" style="overflow:hidden; margin-bottom:1.5rem; border-radius:1rem; box-shadow:0 20px 40px rgba(0,0,0,0.2); border:none;" id="receipt-card">
+    <!-- Store Header -->
+    <div class="receipt-header" style="background:var(--primary-container); padding:1.5rem; text-align:center; color:#fff; position:relative;">
+      <h2 style="font-size:1.125rem; font-weight:800; margin-bottom:0.25rem;" id="receipt-store-name">GadgetStock</h2>
+      <p style="font-size:0.75rem; opacity:0.8; margin:0;" id="card-txn-num">—</p>
+      <p style="font-size:0.75rem; opacity:0.8; margin:0;" id="receipt-datetime"></p>
+    </div>
+
+    <!-- Items -->
+    <div style="padding:1.5rem;">
+      <div id="receipt-items" style="margin-bottom:1rem;"></div>
+      
+      <!-- Divider -->
+      <div class="print-line-dashed" style="border-top:2px dashed var(--outline-variant); margin:1rem 0; padding-top:1rem;">
+        <div id="receipt-totals"></div>
+      </div>
+
+      <!-- Payment Info -->
+      <div style="background:var(--surface-container-low); padding:1rem; border-radius:0.75rem; display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+        <div>
+          <p style="font-size:0.625rem; text-transform:uppercase; font-weight:700; color:var(--on-surface-variant); margin-bottom:0.125rem;">Payment Method</p>
+          <p style="font-size:0.875rem; font-weight:700; color:var(--text-blue); text-transform:capitalize; margin:0;" id="receipt-method">—</p>
+        </div>
+        <div id="change-section" style="text-align:right; display:none;">
+          <p style="font-size:0.625rem; text-transform:uppercase; font-weight:700; color:var(--on-surface-variant); margin-bottom:0.125rem;">Change</p>
+          <p style="font-size:0.875rem; font-weight:700; color:var(--text-blue); margin:0;" id="receipt-change" class="text-rupiah">—</p>
+        </div>
+      </div>
+      
+      <!-- Receipt Footer -->
+      <p style="text-align:center; font-size:0.75rem; color:var(--on-surface-variant); font-style:italic; margin:0;" id="receipt-footer-text">Terima kasih telah berbelanja!</p>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div id="receipt-actions-new" class="no-print" style="display:flex;flex-direction:column;gap:0.75rem;">
+    <button class="btn btn-primary btn-full" onclick="window.print()">
+      <span class="material-symbols-outlined">print</span>Print Receipt
+    </button>
+    <button class="btn btn-secondary btn-full" onclick="navigate('/pos'); State?.clearCart?.()">
+      <span class="material-symbols-outlined">add_circle</span>New Transaction
+    </button>
+    <button class="btn btn-ghost btn-full" onclick="navigate('/dashboard')">
+      <span class="material-symbols-outlined">dashboard</span>Back to Dashboard
+    </button>
+  </div>
+
+  <div id="receipt-actions-old" class="no-print" style="display:none; flex-direction:column; gap:0.75rem;">
+    <button class="btn btn-primary btn-full" onclick="window.print()">
+      <span class="material-symbols-outlined">print</span>Print Receipt
+    </button>
+    <button class="btn btn-ghost btn-full" onclick="navigate('/transactions')">
+      <span class="material-symbols-outlined">history</span>Back to History
+    </button>
+  </div>
+</div>
+
+<style>
+@media print {
+  body { visibility: hidden; background: #fff !important; }
+  .receipt-container, .receipt-container * { visibility: visible; }
+  .receipt-container { 
+    position: fixed !important; 
+    left: 0 !important; 
+    top: 0 !important; 
+    width: 100% !important; 
+    height: auto !important; 
+    background: #fff !important; 
+    padding: 0 !important;
+    display: block !important;
+    margin: 0 !important;
+    max-width: none !important;
+  }
+  .card { 
+    box-shadow: none !important; 
+    border: 1px solid #000 !important; 
+    margin: 0 auto !important; 
+    width: 100% !important; 
+    max-width: none !important; 
+    position: static !important;
+    overflow: visible !important;
+  }
+  /* Remove shadows but let browser handle colors based on checkbox */
+  .card div, .card p, .card h2, .card span { 
+    box-shadow: none !important; 
+  }
+  .receipt-header { 
+    background: none !important; 
+    color: #000 !important;
+    border-bottom: 2px solid #000 !important; 
+  }
+  .receipt-header h2, .receipt-header p { 
+    color: #000 !important; 
+    opacity: 1 !important; 
+  }
+  .print-line-dashed { border-top-color: #000 !important; border-top-width: 1px !important; border-top-style: dashed !important; }
+  .print-line-solid { border-top-color: #000 !important; }
+  .no-print { display: none !important; }
+}
+</style>
+
+<script type="module" src="/js/pages/receipt.js"></script>

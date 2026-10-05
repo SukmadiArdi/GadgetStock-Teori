@@ -1,0 +1,93 @@
+<!-- pages/transactions.html -->
+<style>
+@media print {
+  body { visibility: hidden; background: #fff !important; }
+  .modal-overlay, .modal-overlay * { visibility: visible; }
+  .modal-overlay { 
+    position: fixed !important; 
+    left: 0 !important; 
+    top: 0 !important; 
+    width: 100% !important; 
+    height: auto !important; 
+    background: #fff !important; 
+    padding: 0 !important;
+    display: block !important;
+  }
+  .modal { 
+    box-shadow: none !important; 
+    border: 1px solid #000 !important; 
+    margin: 0 auto !important; 
+    width: 100% !important; 
+    max-width: none !important; 
+    position: static !important;
+    overflow: visible !important;
+  }
+  /* Remove scroll limits for print so long receipts aren't cut off */
+  .modal .custom-scroll { 
+    max-height: none !important; 
+    overflow: visible !important; 
+    padding-right: 0 !important; 
+  }
+  /* Remove shadows but let browser handle colors based on checkbox */
+  .modal div, .modal p, .modal h2, .modal span { 
+    box-shadow: none !important; 
+  }
+  /* Force modal header to be print-friendly: no blue bg, black text, clear border */
+  .modal .receipt-header { 
+    background: none !important; 
+    color: #000 !important;
+    border-bottom: 2px solid #000 !important; 
+  }
+  .modal .receipt-header h2, .modal .receipt-header p { 
+    color: #000 !important; 
+    opacity: 1 !important; 
+  }
+  .print-line-dashed { border-top-color: #000 !important; border-top-width: 1px !important; border-top-style: dashed !important; }
+  .print-line-solid { border-top-color: #000 !important; }
+  .no-print { display: none !important; }
+}
+</style>
+<div class="fade-in" style="height:100%; display:flex; flex-direction:column; overflow:hidden;">
+  <div style="margin-bottom:1.5rem; flex-shrink:0;">
+    <p style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.15em;font-weight:700;color:var(--on-surface-variant);">History</p>
+    <h1 style="font-size:1.875rem;font-weight:800;color:var(--text-blue);">Transaction History</h1>
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-row" style="display:flex;gap:0.75rem;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap; flex-shrink:0;">
+    <input type="text" id="txn-search" class="form-input" placeholder="Search by TXN# or customer..." style="max-width:20rem;" oninput="debouncedLoad()" />
+    <input type="date" id="txn-date" class="form-input" style="max-width:12rem;" onchange="loadTxns()" />
+    <select id="txn-method" class="form-input form-select" style="max-width:10rem;" onchange="loadTxns()">
+      <option value="">All Methods</option>
+      <option value="cash">Cash</option>
+      <option value="qris">QRIS</option>
+      <option value="debit">Debit</option>
+      <option value="credit">Credit</option>
+    </select>
+    <button class="btn btn-ghost btn-sm" onclick="clearFilters()">
+      <span class="material-symbols-outlined" style="font-size:1rem;">filter_alt_off</span>Clear
+    </button>
+  </div>
+
+  <!-- Table -->
+  <div class="card" style="flex:1; display:flex; flex-direction:column; overflow:hidden; min-height:0;">
+    <div style="flex:1; overflow-y:auto;" class="custom-scroll" id="txn-table-scroll" onscroll="sessionStorage.setItem('gs_txn_scroll', this.scrollTop)">
+      <table class="data-table">
+        <thead><tr>
+          <th>TXN #</th><th>Date & Time</th><th>Customer</th>
+          <th style="text-align:center;">Items</th><th style="text-align:right;">Total</th>
+          <th>Method</th><th style="text-align:center;">Status</th><th style="text-align:center;">Action</th>
+        </tr></thead>
+        <tbody id="txn-tbody">
+          <tr><td colspan="8" style="text-align:center;padding:3rem;color:var(--on-surface-variant);">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination" id="txn-pagination" style="display:none; flex-shrink:0; border-top:1px solid rgba(196,198,207,0.1); background:var(--surface-container-lowest);">
+      <p class="pagination-info" id="txn-pag-info">—</p>
+      <div class="pagination-controls" id="txn-pag-ctrl"></div>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/js/pages/transactions.js"></script>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="description" content="GadgetStock — Modern Retail POS System for gadget stores" />
+  <title>GadgetStock POS</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  
+  <!-- Barcode Scanner Library -->
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+  <!-- Global Styles -->
+  <link rel="stylesheet" href="/css/variables.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+  <style>
+    body.is-auth-page #sidebar { display: none !important; }
+    body.is-auth-page #topbar { display: none !important; }
+    body.is-auth-page #bottom-nav { display: none !important; }
+    body.is-auth-page #main-content { margin-left: 0 !important; padding: 0 !important; width: 100vw; height: 100vh; background: var(--surface-container-low); display: flex; }
+    body.is-auth-page #page-content { max-width: 100%; margin: 0; padding: 0 !important; display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; }
+  </style>
+
+  <!-- Init Theme to prevent flash -->
+  <script>
+    if (localStorage.getItem('gs_theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  </script>
+</head>
+<body>
+  <script>
+    // Mencegah flash tampilan dashboard saat reload di halaman login
+    (function() {
+      const hash = window.location.hash;
+      const user = localStorage.getItem('gs_user');
+      if (hash === '#/login' || !user || user === 'undefined') {
+        document.body.classList.add('is-auth-page');
+      }
+    })();
+  </script><!-- === App Shell ================================================ -->
+<div id="app">
+
+  <!-- --- Sidebar (Desktop) ------------------------------------ -->
+  <aside id="sidebar">
+    <div class="nav-logo">
+      <div class="nav-logo-icon">
+        <span class="material-symbols-outlined icon-filled">storefront</span>
+      </div>
+      <div>
+        <h1>GadgetStock</h1>
+        <p id="terminal-label">Terminal 01</p>
+      </div>
+    </div>
+
+    <nav class="nav-items">
+      <a class="nav-item active" data-nav="Dashboard" onclick="navigate('/dashboard')">
+        <span class="material-symbols-outlined">dashboard</span>
+        <span>Dashboard</span>
+      </a>
+      <a class="nav-item" data-nav="POS" onclick="navigate('/pos')">
+        <span class="material-symbols-outlined">point_of_sale</span>
+        <span>POS</span>
+      </a>
+      <a class="nav-item" data-nav="Inventory" onclick="navigate('/inventory')">
+        <span class="material-symbols-outlined">inventory_2</span>
+        <span>Inventory</span>
+      </a>
+      <a class="nav-item" data-nav="Transactions" onclick="navigate('/transactions')">
+        <span class="material-symbols-outlined">history</span>
+        <span>Transactions</span>
+      </a>
+      <a class="nav-item" data-nav="Reports" data-role-required="manager" onclick="navigate('/sales-report')">
+        <span class="material-symbols-outlined">assessment</span>
+        <span>Reports</span>
+      </a>
+      <a class="nav-item" data-nav="Analytics" data-role-required="manager" onclick="navigate('/analytics')">
+        <span class="material-symbols-outlined">analytics</span>
+        <span>Analytics</span>
+      </a>
+    </nav>
+
+
+  </aside>
+
+  <!-- --- Main Content --------------------------------------- -->
+  <div id="main-content">
+
+    <!-- Top Bar -->
+    <header id="topbar">
+      <div style="display:flex;align-items:center;gap:0.75rem;flex:1;">
+        <!-- Top left area (intentionally left clean since navigation is handled by bottom bar on mobile) -->
+      </div>
+
+      <div class="topbar-actions">
+        <button class="topbar-icon-btn" title="Toggle Theme" onclick="toggleTheme()">
+          <span class="material-symbols-outlined" id="theme-icon">dark_mode</span>
+        </button>
+        <button class="topbar-icon-btn" id="notif-btn" title="Notifications" onclick="navigate('/low-stock')" style="position:relative;">
+          <span class="material-symbols-outlined">notifications</span>
+          <span class="notif-dot" id="notif-dot" style="display:none;"></span>
+          <span id="notif-count" style="display:none;position:absolute;top:-0.125rem;right:-0.125rem;background:var(--error);color:#fff;font-size:0.5rem;font-weight:700;border-radius:9999px;min-width:1rem;height:1rem;line-height:1rem;text-align:center;padding:0 0.25rem;"></span>
+        </button>
+        <button class="topbar-icon-btn topbar-settings-btn" title="Settings" onclick="navigate('/settings')">
+          <span class="material-symbols-outlined">settings</span>
+        </button>
+        <div class="topbar-divider"></div>
+        <div class="topbar-user">
+          <div class="topbar-user-info">
+            <p id="user-name">Alex Manager</p>
+            <span id="user-role">Terminal Admin</span>
+          </div>
+          <div class="topbar-avatar" id="user-avatar">AM</div>
+        </div>
+        <button class="topbar-icon-btn topbar-logout-btn" onclick="State.logout()" style="color:var(--error);margin-left:0.5rem;" title="Logout">
+          <span class="material-symbols-outlined">logout</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Page Content (SPA View) -->
+    <main id="page-content">
+      <!-- Pages load here via router -->
+      <div style="display:flex;align-items:center;justify-content:center;height:60vh;">
+        <div style="text-align:center;">
+          <span class="material-symbols-outlined" style="font-size:3rem;color:var(--outline);display:block;margin-bottom:1rem;">storefront</span>
+          <p style="color:var(--on-surface-variant);">Loading GadgetStock...</p>
+        </div>
+      </div>
+    </main>
+
+  </div><!-- /main-content -->
+
+</div><!-- /app -->
+
+<!-- Guest Mode Banner -->
+<div id="guest-banner" style="display:none;">
+  <div style="display:flex;align-items:center;gap:1rem;flex:1;">
+    <div class="guest-badge">Demo Mode</div>
+    <div style="display:flex;align-items:center;gap:0.5rem;opacity:0.95;">
+      <span class="material-symbols-outlined" style="font-size:1.25rem;">info</span>
+      <span>Semua fitur aktif — Data tidak akan disimpan ke database.</span>
+    </div>
+  </div>
+  <button onclick="State.logout(); navigate('/login')" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:0.5rem;padding:0.5rem 1rem;font-size:0.75rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all 0.2s;backdrop-filter:blur(4px);" onmouseover="this.style.background='rgba(255,255,255,0.2)';this.style.borderColor='rgba(255,255,255,0.4)';" onmouseout="this.style.background='rgba(255,255,255,0.1)';this.style.borderColor='rgba(255,255,255,0.2)';">
+    Sign In
+  </button>
+</div>
+
+  <!-- --- Bottom Nav (Mobile) --------------------------------- -->
+<nav id="bottom-nav">
+  <a class="bottom-nav-item active" data-nav="Dashboard" onclick="navigate('/dashboard')">
+    <span class="material-symbols-outlined">dashboard</span>
+    <span>Dash</span>
+  </a>
+  <a class="bottom-nav-item" data-nav="POS" onclick="navigate('/pos')">
+    <span class="material-symbols-outlined">point_of_sale</span>
+    <span>POS</span>
+  </a>
+  <button class="bottom-nav-fab" id="fab-add-product" data-role-required="manager" onclick="navigate('/product-detail')" title="Tambah Barang">
+    <span class="material-symbols-outlined">add</span>
+  </button>
+  <a class="bottom-nav-item" data-nav="Inventory" onclick="navigate('/inventory')">
+    <span class="material-symbols-outlined">inventory_2</span>
+    <span>Stock</span>
+  </a>
+  <a class="bottom-nav-item" id="bottom-more-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+    <span class="material-symbols-outlined">menu</span>
+    <span>More</span>
+  </a>
+</nav>
+
+<!-- Toast notifications container -->
+<div id="toast-container"></div>
+
+<!-- Global Scanner Modal -->
+<div id="scanner-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:2000;align-items:center;justify-content:center;padding:1.5rem;backdrop-filter:blur(10px);">
+  <div class="card" style="width:100%;max-width:500px;overflow:hidden;position:relative;background:#000;">
+    <div id="reader" style="width:100%;"></div>
+    <div style="padding:1.5rem;background:var(--surface-container-highest);display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <h3 style="font-size:1rem;font-weight:700;color:var(--text-blue);">Scanner Active</h3>
+        <p style="font-size:0.75rem;color:var(--on-surface-variant);">Point camera at a barcode</p>
+      </div>
+      <button class="btn btn-secondary btn-sm" id="close-scanner-btn">
+        <span class="material-symbols-outlined" style="font-size:1.125rem;">close</span>Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- === App Bootstrap ======================================== -->
+<script type="module">
+  import { initRouter, navigate } from '/js/router.js';
+  import { showToast } from '/js/utils.js';
+  import State from '/js/state.js';
+
+  // Make navigate and State global for onclick attributes
+  window.navigate = navigate;
+  window.State = State;
+  window.showToast = showToast;
+
+  // Theme logic
+  window.toggleTheme = function() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('gs_theme', 'light');
+      document.getElementById('theme-icon').textContent = 'dark_mode';
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('gs_theme', 'dark');
+      document.getElementById('theme-icon').textContent = 'light_mode';
+    }
+  };
+  // Ensure icon matches current theme on load
+  if (document.documentElement.getAttribute('data-theme') === 'dark') {
+    const icon = document.getElementById('theme-icon');
+    if (icon) icon.textContent = 'light_mode';
+  }
+
+  // Mobile responsive: hide sidebar on small screens when resizing
+  function handleResize() {
+    const isMobile = window.innerWidth < 768;
+    // Close sidebar overlay if resizing back to desktop
+    if (!isMobile) document.getElementById('sidebar')?.classList.remove('open');
+  }
+  window.addEventListener('resize', handleResize);
+  handleResize();
+
+  // Close sidebar when clicking outside on mobile or after a navigation click
+  document.addEventListener('click', (e) => {
+    const sidebar = document.getElementById('sidebar');
+    const bottomMoreBtn = document.getElementById('bottom-more-btn');
+    
+    if (window.innerWidth < 768 && sidebar?.classList.contains('open')) {
+      // Auto-close if a navigation link inside sidebar is clicked
+      if (e.target.closest('#sidebar .nav-item, #sidebar .nav-new-sale')) {
+        sidebar.classList.remove('open');
+        return;
+      }
+      
+      // Auto-close if clicked outside sidebar and not on the bottom toggle button
+      if (!sidebar.contains(e.target) && !bottomMoreBtn?.contains(e.target)) {
+        sidebar.classList.remove('open');
+      }
+    }
+  });
+
+
+  // Sync user info in topbar from State
+  function syncUserUI() {
+    const u = State.currentUser;
+    if (!u) {
+      document.body.classList.add('is-auth-page');
+      document.body.classList.remove('is-guest');
+      const guestBanner = document.getElementById('guest-banner');
+      if (guestBanner) guestBanner.style.display = 'none';
+      if (window.location.hash !== '#/login') navigate('/login');
+      return;
+    }
+    document.body.classList.remove('is-auth-page');
+    const nameEl = document.getElementById('user-name');
+    const roleEl = document.getElementById('user-role');
+    const avatarEl = document.getElementById('user-avatar');
+    const terminalEl = document.getElementById('terminal-label');
+    const guestBanner = document.getElementById('guest-banner');
+    const mainContent = document.getElementById('main-content');
+
+    if (nameEl) nameEl.textContent = u.name;
+    if (roleEl) {
+      if (u.role === '_guest')       roleEl.textContent = 'Demo / Guest';
+      else if (u.role === 'manager') roleEl.textContent = 'Store Manager';
+      else if (u.role === 'admin')   roleEl.textContent = 'Administrator';
+      else                           roleEl.textContent = 'Cashier';
+    }
+
+    // ── RBAC: Tampilkan/sembunyikan elemen berdasarkan role ──
+    const isPrivileged = ['manager', 'admin', '_guest'].includes(u.role);
+    document.querySelectorAll('[data-role-required="manager"]').forEach(el => {
+      el.style.display = isPrivileged ? '' : 'none';
+    });
+    if (avatarEl) avatarEl.textContent = u.initials;
+    if (terminalEl) terminalEl.textContent = State.settings?.terminal || 'Terminal 01';
+
+    // Show/hide guest banner and offset main content
+    if (State.isGuest) {
+      document.body.classList.add('is-guest');
+      if (guestBanner) { guestBanner.style.display = 'flex'; }
+    } else {
+      document.body.classList.remove('is-guest');
+      if (guestBanner) { guestBanner.style.display = 'none'; }
+    }
+  }
+  State.on('user', syncUserUI);
+  State.on('settings', syncUserUI);
+  syncUserUI();
+
+  // Check for low stock notifications
+  async function checkLowStock() {
+    try {
+      const data = await fetch('/api/inventory/low-stock').then(r => r.ok ? r.json() : null);
+      if (data && data.total > 0) {
+        document.getElementById('notif-dot').style.display = 'none';
+        const badge = document.getElementById('notif-count');
+        badge.textContent = data.total > 99 ? '99+' : data.total;
+        badge.style.display = 'block';
+        document.getElementById('notif-btn').title = `${data.total} item stok rendah/habis`;
+      } else {
+        document.getElementById('notif-dot').style.display = 'none';
+        document.getElementById('notif-count').style.display = 'none';
+        document.getElementById('notif-btn').title = 'Notifications';
+      }
+    } catch (_) { /* silent fail */ }
+  }
+  checkLowStock();
+  // Refresh setiap 5 menit
+  setInterval(checkLowStock, 5 * 60 * 1000);
+
+  // === Scroll Persistence =========================================
+  window.addEventListener('page:loaded', (e) => {
+    const path = e.detail.path;
+    const savedScroll = sessionStorage.getItem(`gs_scroll_${path}`);
+    if (savedScroll) {
+      // Small delay to ensure content has rendered
+      setTimeout(() => {
+        const container = document.getElementById('page-content');
+        if (container) container.scrollTop = parseInt(savedScroll);
+      }, 150);
+    }
+  });
+
+  // Save scroll position periodically
+  const pageContainer = document.getElementById('page-content');
+  if (pageContainer) {
+    pageContainer.addEventListener('scroll', () => {
+      const path = window.location.hash.split('?')[0].slice(1) || '/';
+      sessionStorage.setItem(`gs_scroll_${path}`, pageContainer.scrollTop);
+    }, { passive: true });
+  }
+
+  // Boot the router
+  initRouter();
+</script>
+
+<!-- Global Floating Chart Tooltip -->
+<div id="chart-tooltip" class="chart-tooltip"></div>
+
+</body>
+</html>
