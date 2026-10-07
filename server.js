@@ -107,25 +107,29 @@ app.use((req, res) => {
 });
 
 // === Error Handler =============================================
-app.use((err, req, res, next) => {
+app.use((err, req, res, _next) => {
   console.error('Server error:', err);
   res.status(500).json({ error: err.message || 'Internal server error' });
 });
 
 // === Start =====================================================
-app.listen(PORT, () => {
-  console.log('');
-  console.log('   _____             _  _____ _             _ ');
-  console.log('  / ____|           | |/ ____| |           | |');
-  console.log(' | |  __  __ _  __| | (___ | |_ ___   ___| | __');
-  console.log(' | | |_ |/ _` |/ _` |\\___ \\| __/ _ \\ / __| |/ /');
-  console.log(' | |__| | (_| | (_| |____) | || (_) | (__|   < ');
-  console.log('  \\_____|\\__,_|\\__,_|_____/ \\__\\___/ \\___|_|\\_\\');
-  console.log('');
-  console.log(`  🚀 Server running at: http://localhost:${PORT}`);
-  console.log(`  📦 API ready at:      http://localhost:${PORT}/api/`);
-  console.log(`  🗄️  Supabase URL:      ${process.env.SUPABASE_URL || '⚠️  NOT SET'}`);
-  console.log('');
-  console.log('  Ctrl+C to stop');
-  console.log('');
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log('');
+    console.log('   _____             _  _____ _             _ ');
+    console.log('  / ____|           | |/ ____| |           | |');
+    console.log(' | |  __  __ _  __| | (___ | |_ ___   ___| | __');
+    console.log(' | | |_ |/ _` |/ _` |\\___ \\| __/ _ \\ / __| |/ /');
+    console.log(' | |__| | (_| | (_| |____) | || (_) | (__|   < ');
+    console.log('  \\_____|\\__,_|\\__,_|_____/ \\__\\___/ \\___|_|\\_\\');
+    console.log('');
+    console.log(`  🚀 Server running at: http://localhost:${PORT}`);
+    console.log(`  📦 API ready at:      http://localhost:${PORT}/api/`);
+    console.log(`  🗄️  Supabase URL:      ${process.env.SUPABASE_URL || '⚠️  NOT SET'}`);
+    console.log('');
+    console.log('  Ctrl+C to stop');
+    console.log('');
+  });
+}
+
+module.exports = { app, vercelHandler };

@@ -212,11 +212,9 @@ const State = {
   },
 
   _emit(event) {
-    if (event === 'cart') {
+    if (event === 'cart' && !this.isGuest) {
       // Don't persist cart in guest mode
-      if (!this.isGuest) {
-        localStorage.setItem('gs_cart', JSON.stringify(this.cart));
-      }
+      localStorage.setItem('gs_cart', JSON.stringify(this.cart));
     }
     (this._listeners[event] || []).forEach(cb => cb(this));
   }
