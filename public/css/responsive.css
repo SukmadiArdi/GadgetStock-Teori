@@ -1,0 +1,242 @@
+/* responsive.css */
+/* ─── Responsive: Tablet (≤1024px) ────────────────────────── */
+@media (max-width: 1024px) {
+  :root { --sidebar-w: 13rem; }
+
+  /* Dashboard KPI grid: 2x2 on tablet */
+  #kpi-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  #kpi-grid > .card-hero {
+    grid-column: span 2 !important;
+  }
+
+  /* Detail grid: stack on tablet */
+  .dash-detail-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .dash-alert-col {
+    grid-column: span 1 !important;
+  }
+
+  /* Inventory two-col sidebar */
+  .inv-layout {
+    grid-template-columns: 1fr !important;
+  }
+  .inv-sidebar { display: none; }
+
+  /* Settings two-col */
+  .settings-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Analytics / Reports grids */
+  .analytics-kpi-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .analytics-kpi-grid > .card-hero {
+    grid-column: span 2 !important;
+  }
+  .two-col-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ─── Responsive: Mobile (≤767px) ─────────────────────────── */
+@media (max-width: 767px) {
+  /* ── Layout shell ───────────────── */
+  #sidebar { transform: translateX(-100%); z-index: 999; }
+  #sidebar.open { transform: translateX(0); box-shadow: 4px 0 24px rgba(0,0,0,0.15); }
+  #main-content { margin-left: 0; height: auto !important; }
+  #bottom-nav { display: flex; }
+  #page-content { 
+    padding: 0.875rem; 
+    padding-top: calc(var(--header-h) + 0.875rem); 
+    padding-bottom: 5.5rem; 
+  }
+  
+  .nav-logo { margin-bottom: 1rem !important; }
+  .nav-logo-icon { width: 2rem !important; height: 2rem !important; }
+  .nav-logo h1 { font-size: 0.8125rem !important; }
+  .nav-logo p { font-size: 0.5rem !important; }
+
+  /* ── Top bar ────────────────────── */
+  #topbar { padding: 0 0.875rem; }
+  .topbar-user-info { display: none; }
+  .topbar-divider { display: none; }
+  .topbar-actions { gap: 0.5rem; }
+
+  /* ── Page headers ───────────────── */
+  h1 { font-size: 1.375rem !important; }
+  .inv-header-row, .report-header-row, .analytics-header-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+  }
+  .inv-header-row > div, .report-header-row > div, .analytics-header-row > div {
+    width: 100% !important;
+  }
+  .inv-header-row > div:last-child, .report-header-row > div:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* ── Dashboard ──────────────────── */
+  #kpi-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.75rem !important;
+  }
+  #kpi-grid > .card-hero {
+    grid-column: span 2 !important;
+    min-height: 9rem !important;
+    padding: 1.25rem !important;
+  }
+  #kpi-grid > .card-hero h2 { font-size: 1.75rem !important; }
+  #kpi-grid .card { padding: 1rem !important; }
+  #kpi-grid .card h3 { font-size: 1.375rem !important; }
+
+  .dash-detail-grid,
+  [style*="grid-template-columns:1fr 1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr 1fr"] {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.25rem !important;
+  }
+
+  /* ── Analytics / Reports KPI grids ─ */
+  [style*="grid-template-columns:repeat(4,1fr)"],
+  [style*="grid-template-columns: repeat(4, 1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+  }
+  [style*="grid-template-columns:repeat(4,1fr)"] > [style*="grid-column:span 2"],
+  [style*="grid-template-columns: repeat(4, 1fr)"] > [style*="grid-column: span 2"] {
+    grid-column: span 2 !important;
+  }
+
+  /* Two column layouts → single col */
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="grid-template-columns:1fr 1.2fr"],
+  [style*="grid-template-columns: 1fr 1.2fr"],
+  [style*="grid-template-columns:1fr 22rem"],
+  [style*="grid-template-columns: 1fr 22rem"],
+  [style*="grid-template-columns:1fr 24rem"],
+  [style*="grid-template-columns: 1fr 24rem"],
+  [style*="grid-template-columns:1fr 1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr 1fr"] {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+
+
+
+  /* POS search + scanner */
+  #pos-header-controls {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+  #pos-search-row { width: 100% !important; }
+
+  /* ── Inventory ──────────────────── */
+  .inv-header-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+  }
+  .inv-header-row > div:last-child {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.5rem !important;
+  }
+
+
+  /* ── Product Detail ─────────────── */
+  #product-form {
+    grid-template-columns: 1fr !important;
+  }
+  #product-form > div:last-child {
+    grid-column: span 1 !important;
+  }
+
+  /* ── Checkout ───────────────────── */
+  #checkout-grid {
+    grid-template-columns: 1fr !important;
+  }
+  #payment-options-container {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* ── Settings ───────────────────── */
+  #settings-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Tables → horizontal scroll ─── */
+  .card[style*="overflow:hidden"] {
+    overflow-x: auto !important;
+  }
+  .data-table {
+    min-width: 600px;
+  }
+
+  /* ── Analytics header row ───────── */
+  .analytics-header-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+  }
+  .analytics-header-row > div:last-child {
+    display: flex !important;
+    gap: 0.5rem !important;
+  }
+  .analytics-header-row input[type="month"],
+  .analytics-header-row input[type="date"] {
+    flex: 1 !important;
+    width: auto !important;
+  }
+
+  /* ── Low Stock alerts summary ───── */
+  #alert-summary {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+
+  /* ── Scanner modal ──────────────── */
+  #scanner-modal > div > div:first-child {
+    max-width: 100% !important;
+  }
+
+  /* ── Modal ──────────────────────── */
+  .modal { padding: 1.25rem !important; margin: 0.5rem !important; }
+
+  /* ── Filter rows ────────────────── */
+  .filter-row {
+    flex-wrap: wrap !important;
+  }
+  .filter-row > * { min-width: 0; }
+  .filter-row input[type="text"] { flex: 1 1 100% !important; }
+
+  /* ── Reports header ─────────────── */
+  .report-header-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+  }
+  .report-header-row > div:first-child {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+  .report-header-row > div:last-child {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+
+  /* ── Utility ────────────────────── */
+  .hide-mobile { display: none !important; }
+  .btn-full-mobile { width: 100% !important; }
+}

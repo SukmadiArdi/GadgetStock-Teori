@@ -1,0 +1,126 @@
+<!-- pages/checkout.html - Checkout Screen -->
+<div class="fade-in" style="max-width:64rem;margin:0 auto;height:100%;display:flex;flex-direction:column;">
+
+  <!-- Header -->
+  <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;flex-shrink:0;">
+    <button class="btn btn-ghost btn-sm" onclick="navigate('/pos')" style="background:var(--surface-container-high);">
+      <span class="material-symbols-outlined">arrow_back</span>
+    </button>
+    <div>
+      <h1 style="font-size:1.5rem;font-weight:800;color:var(--text-blue);">Checkout</h1>
+      <p style="font-size:0.75rem;color:var(--on-surface-variant);">Complete the transaction</p>
+    </div>
+  </div>
+
+  <div id="checkout-grid" style="display:grid;grid-template-columns:1fr 1.2fr;gap:2rem;flex:1;overflow:hidden;min-height:0;">
+
+    <!-- Left: Order Summary -->
+    <div style="display:flex;flex-direction:column;overflow:hidden;">
+      <h2 style="font-size:0.8125rem;font-weight:700;color:var(--on-surface-variant);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem;">Order Summary</h2>
+      
+      <!-- Scrollable Item List -->
+      <div class="card" style="flex:1;overflow-y:auto;margin-bottom:1rem;background:var(--surface-container-low);" id="order-summary" class="custom-scroll"></div>
+
+      <!-- Totals -->
+      <div class="card" style="padding:1.5rem;background:var(--primary-container);color:#fff;box-shadow:var(--shadow-lg);flex-shrink:0;">
+        <div style="display:flex;flex-direction:column;gap:0.75rem;">
+          <div style="display:flex;justify-content:space-between;font-size:0.875rem;opacity:0.8;">
+            <span>Subtotal</span><span id="co-subtotal" class="text-rupiah">—</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.875rem;opacity:0.8;">
+            <span id="co-tax-label">Tax</span><span id="co-tax" class="text-rupiah">—</span>
+          </div>
+          <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:1rem;display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:1rem;font-weight:700;">Grand Total</span>
+            <span id="co-total" style="font-size:1.75rem;font-weight:800;letter-spacing:-0.03em;" class="text-rupiah">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Payment -->
+    <div>
+      <h2 style="font-size:0.875rem;font-weight:700;color:var(--on-surface-variant);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem;">Payment Method</h2>
+
+      <!-- Payment Options (Desktop: Grid, Mobile: Select) -->
+      <div class="desktop-only" style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.5rem;" id="payment-options-container">
+      </div>
+      
+      <div class="mobile-only" style="margin-bottom:1.5rem;">
+        <select id="payment-method-select" class="form-input" style="height:3.5rem;font-weight:600;background-image:url('data:image/svg+xml;charset=utf-8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%2343474e\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><polyline points=\'6 9 12 15 18 9\'></polyline></svg>');background-repeat:no-repeat;background-position:right 1rem center;background-size:1.5em;appearance:none;" onchange="selectMethod({dataset:{method:this.value}})">
+        </select>
+      </div>
+
+      <!-- Payment Form Wrapper for consistent height -->
+      <div style="min-height: 320px; display: flex; flex-direction: column;">
+        <!-- Cash Form -->
+        <div id="cash-form" class="card" style="padding:1.5rem;margin-bottom:1.5rem;flex:1;">
+          <div class="form-group" style="margin-bottom:1.25rem;">
+            <label class="form-label">Cash Received</label>
+            <div style="position:relative;">
+              <span style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);font-weight:700;color:var(--on-surface-variant);">Rp</span>
+              <input type="text" id="cash-input" class="form-input" placeholder="0" style="padding-left:3rem;font-size:1.25rem;font-weight:700;height:3.5rem;" oninput="formatCurrencyInput(this); calcChange()" />
+            </div>
+          </div>
+          
+          <!-- Quick Cash Buttons -->
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-bottom:1.5rem;">
+            <button class="btn btn-ghost btn-sm" onclick="setCash('exact')" style="font-size:0.625rem;padding:0.5rem 0;">Pas</button>
+            <button class="btn btn-ghost btn-sm" onclick="setCash(50000)" style="font-size:0.625rem;padding:0.5rem 0;">50k</button>
+            <button class="btn btn-ghost btn-sm" onclick="setCash(100000)" style="font-size:0.625rem;padding:0.5rem 0;">100k</button>
+            <button class="btn btn-ghost btn-sm" onclick="setCash(200000)" style="font-size:0.625rem;padding:0.5rem 0;">200k</button>
+          </div>
+
+          <div style="background:var(--surface-container-lowest);border-radius:0.75rem;padding:1rem;display:flex;justify-content:space-between;align-items:center;border:1px solid var(--outline-variant);">
+            <div>
+              <p style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;color:var(--on-surface-variant);margin-bottom:0.25rem;">Change</p>
+              <span id="change-amount" style="font-size:1.5rem;font-weight:800;color:var(--primary-container);" class="text-rupiah">Rp 0</span>
+            </div>
+            <div style="background:var(--primary-container);color:#fff;width:2.5rem;height:2.5rem;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+              <span class="material-symbols-outlined">payments</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Non-cash notice -->
+        <div id="noncash-form" class="card" style="padding:1.25rem;margin-bottom:1.5rem;text-align:center;display:none;flex:1;flex-direction:column;justify-content:center;align-items:center;">
+          <span class="material-symbols-outlined" style="font-size:2.5rem;color:var(--on-surface-variant);display:block;margin-bottom:0.5rem;">qr_code_scanner</span>
+          <p style="font-size:0.875rem;font-weight:600;color:var(--on-surface-variant);" id="noncash-label">Please present QR / card for payment</p>
+        </div>
+      </div>
+
+      <!-- Confirm Button -->
+      <button class="btn btn-primary btn-full btn-lg" onclick="confirmPayment()" id="confirm-btn">
+        <span class="material-symbols-outlined">check_circle</span>
+        Confirm Payment
+      </button>
+      <p id="confirm-error" style="color:var(--error);font-size:0.75rem;margin-top:0.5rem;display:none;"></p>
+    </div>
+  </div>
+</div>
+
+<style>
+.pay-option{display:flex;flex-direction:column;align-items:center;gap:0.5rem;padding:1.25rem;border:2px solid var(--outline-variant);border-radius:0.75rem;cursor:pointer;transition:all 0.15s;font-size:0.8125rem;font-weight:600;color:var(--on-surface-variant);}
+.pay-option:hover{border-color:var(--primary-container);color:var(--text-blue);}
+.pay-option.selected{border-color:var(--primary-container);background:rgba(0,31,63,0.05);color:var(--text-blue);}
+.pay-option .material-symbols-outlined{font-size:1.75rem;}
+
+.mobile-only { display: none !important; }
+.desktop-only { display: grid !important; }
+
+@media (max-width: 768px) {
+  .desktop-only { display: none !important; }
+  .mobile-only { display: block !important; }
+  #checkout-grid {
+    grid-template-columns: 1fr !important;
+    overflow-y: auto !important;
+    gap: 1.5rem !important;
+    padding-bottom: 2rem;
+  }
+  #order-summary {
+    max-height: 250px;
+  }
+}
+</style>
+
+<script type="module" src="/js/pages/checkout.js"></script>

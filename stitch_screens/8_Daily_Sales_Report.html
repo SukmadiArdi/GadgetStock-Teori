@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Daily Sales Report | PhonePOS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#001f3f",
+                    "tertiary": "#110200",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-tertiary-fixed-variant": "#6b3a25",
+                    "on-tertiary-fixed": "#351002",
+                    "outline-variant": "#c4c6cf",
+                    "surface-container": "#edeeef",
+                    "on-background": "#191c1d",
+                    "background": "#f8f9fa",
+                    "surface-bright": "#f8f9fa",
+                    "error": "#ba1a1a",
+                    "inverse-primary": "#afc8f0",
+                    "surface-dim": "#d9dadb",
+                    "on-tertiary-container": "#b5785f",
+                    "tertiary-fixed": "#ffdbce",
+                    "primary-fixed": "#d4e3ff",
+                    "surface-container-high": "#e7e8e9",
+                    "surface-variant": "#e1e3e4",
+                    "on-secondary-fixed-variant": "#474747",
+                    "tertiary-fixed-dim": "#fdb69a",
+                    "outline": "#74777f",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#43474e",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "on-primary-container": "#6f88ad",
+                    "primary": "#000613",
+                    "tertiary-container": "#391303",
+                    "surface": "#f8f9fa",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#2e3132",
+                    "secondary-fixed": "#e4e2e1",
+                    "primary-fixed-dim": "#afc8f0",
+                    "on-secondary-container": "#656464",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#c8c6c6",
+                    "secondary-container": "#e4e2e1",
+                    "on-primary-fixed": "#001c3a",
+                    "on-surface": "#191c1d",
+                    "surface-tint": "#476083",
+                    "secondary": "#5f5e5e",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<aside class="h-screen w-64 fixed left-0 top-0 bg-slate-100 flex flex-col p-4 gap-2 h-full z-50">
+<div class="flex items-center gap-3 px-2 mb-8">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">point_of_sale</span>
+</div>
+<div>
+<h2 class="font-bold text-blue-950 text-sm tracking-tight">GadgetStock</h2>
+<p class="font-sans uppercase tracking-widest text-[10px] text-slate-500">Terminal 01</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-white/50 transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-white/50 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]">point_of_sale</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">POS</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-white/50 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-white/50 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]">history</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Transactions</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-white text-blue-950 rounded-lg shadow-sm font-bold transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]">assessment</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-white/50 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Analytics</span>
+</a>
+</nav>
+<button class="mt-auto bg-primary-container text-white p-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-all">
+<span class="material-symbols-outlined">add</span>
+            New Sale
+        </button>
+</aside>
+<main class="ml-64 min-h-screen">
+<header class="w-full top-0 sticky bg-slate-50 flex items-center justify-between px-6 py-3 z-40">
+<div class="flex items-center gap-4">
+<h1 class="text-xl font-bold tracking-tighter text-blue-950">Daily Sales Report</h1>
+<div class="h-4 w-[1px] bg-slate-200"></div>
+<span class="text-sm font-medium text-slate-500">October 24, 2023</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<input class="bg-surface-container-low border-none rounded-full px-4 py-2 text-sm w-64 focus:ring-1 focus:ring-primary-container transition-all" placeholder="Search report data..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-2 text-slate-400 text-sm">search</span>
+</div>
+<button class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<img alt="Manager Profile" class="w-8 h-8 rounded-full border border-white shadow-sm" data-alt="professional male store manager portrait in a modern clean retail environment with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAalUFaKIGRNQuZ7Y6ZDaeU65jT4wSRy9tVO1YZU9jFqcu4gMiqmWC_eC0XO67rKTocsFku5hkGL2pSLkgN6Pa5q-okIXEN37jdeTglocxKT1TnSEx6DlUQBbTZYYqEemmJ-y7iln5aWNNOJFJDMaxWn7-ryEpkt0zZcuLDLMctv3Eoxgfy_rABaMgIzA-JJs2Blf8OVHQVeA7sLcZVOWv0PC9J_im0kzCcORCAtjDosAum-WttttpbmqIiThbmoZcrU8ynQBKrRg"/>
+</div>
+</header>
+<div class="p-8 space-y-8">
+<section class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<p class="font-sans uppercase tracking-widest text-[10px] text-slate-500 mb-1">Total Revenue</p>
+<h3 class="text-3xl font-extrabold tracking-tight text-primary-container">Rp 12.482.000</h3>
+<div class="mt-4 flex items-center text-xs text-emerald-600 font-semibold">
+<span class="material-symbols-outlined text-sm mr-1">trending_up</span>
+                        14.2% vs yesterday
+                    </div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<p class="font-sans uppercase tracking-widest text-[10px] text-slate-500 mb-1">Total Transactions</p>
+<h3 class="text-3xl font-extrabold tracking-tight text-primary-container">84</h3>
+<div class="mt-4 flex items-center text-xs text-emerald-600 font-semibold">
+<span class="material-symbols-outlined text-sm mr-1">trending_up</span>
+                        8% vs yesterday
+                    </div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<p class="font-sans uppercase tracking-widest text-[10px] text-slate-500 mb-1">Average Ticket</p>
+<h3 class="text-3xl font-extrabold tracking-tight text-primary-container">Rp 148.600</h3>
+<div class="mt-4 flex items-center text-xs text-slate-400 font-semibold">
+<span class="material-symbols-outlined text-sm mr-1">horizontal_rule</span>
+                        Stable
+                    </div>
+</div>
+<div class="bg-primary-container text-white p-6 rounded-xl shadow-lg relative overflow-hidden">
+<div class="relative z-10">
+<p class="font-sans uppercase tracking-widest text-[10px] text-blue-200 mb-1">Device Sales</p>
+<h3 class="text-3xl font-extrabold tracking-tight">Rp 12.482.000</h3>
+<div class="mt-4 flex items-center text-xs text-blue-100 font-semibold">
+<span class="material-symbols-outlined text-sm mr-1">stars</span>
+                            Target: 50
+                        </div>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">smartphone</span>
+</div>
+</div>
+</section>
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2 bg-surface-container-lowest p-8 rounded-xl shadow-sm space-y-8">
+<div class="flex items-end justify-between">
+<div>
+<h2 class="text-lg font-bold text-primary-container">Revenue Performance</h2>
+<p class="text-sm text-on-surface-variant">Intraday cashflow monitoring</p>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1 bg-surface-container text-xs font-bold rounded-full">Revenue</button>
+<button class="px-3 py-1 text-xs font-medium text-slate-400">Profit</button>
+</div>
+</div>
+<div class="h-64 flex items-end justify-between gap-2 px-2 pt-4">
+<div class="w-full bg-slate-50 rounded-t-lg relative group flex flex-col justify-end" style="height: 30%">
+<div class="bg-primary-container/20 w-full h-full rounded-t-lg transition-all group-hover:bg-primary-container/40"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-medium text-slate-400 uppercase">9AM</span>
+</div>
+<div class="w-full bg-slate-50 rounded-t-lg relative group flex flex-col justify-end" style="height: 45%">
+<div class="bg-primary-container/20 w-full h-full rounded-t-lg transition-all group-hover:bg-primary-container/40"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-medium text-slate-400 uppercase">11AM</span>
+</div>
+<div class="w-full bg-slate-50 rounded-t-lg relative group flex flex-col justify-end" style="height: 85%">
+<div class="bg-primary-container w-full h-full rounded-t-lg transition-all group-hover:opacity-90"></div>
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-primary-container text-white text-[10px] px-2 py-1 rounded shadow-lg">Rp 2,4jt</div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-medium text-slate-400 uppercase">1PM</span>
+</div>
+<div class="w-full bg-slate-50 rounded-t-lg relative group flex flex-col justify-end" style="height: 65%">
+<div class="bg-primary-container/20 w-full h-full rounded-t-lg transition-all group-hover:bg-primary-container/40"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-medium text-slate-400 uppercase">3PM</span>
+</div>
+<div class="w-full bg-slate-50 rounded-t-lg relative group flex flex-col justify-end" style="height: 95%">
+<div class="bg-primary-container w-full h-full rounded-t-lg transition-all group-hover:opacity-90"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-medium text-slate-400 uppercase">5PM</span>
+</div>
+<div class="w-full bg-slate-50 rounded-t-lg relative group flex flex-col justify-end" style="height: 75%">
+<div class="bg-primary-container/20 w-full h-full rounded-t-lg transition-all group-hover:bg-primary-container/40"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-medium text-slate-400 uppercase">7PM</span>
+</div>
+<div class="w-full bg-slate-50 rounded-t-lg relative group flex flex-col justify-end" style="height: 40%">
+<div class="bg-primary-container/20 w-full h-full rounded-t-lg transition-all group-hover:bg-primary-container/40"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-medium text-slate-400 uppercase">9PM</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl space-y-6">
+<h2 class="text-lg font-bold text-primary-container">Category Mix</h2>
+<div class="space-y-6">
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold text-slate-600">
+<span>PHONES</span>
+<span>65%</span>
+</div>
+<div class="h-2 bg-slate-200 rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[65%]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold text-slate-600">
+<span>ACCESSORIES</span>
+<span>25%</span>
+</div>
+<div class="h-2 bg-slate-200 rounded-full overflow-hidden">
+<div class="h-full bg-on-tertiary-container w-[25%]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold text-slate-600">
+<span>REPAIRS &amp; SERVICES</span>
+<span>10%</span>
+</div>
+<div class="h-2 bg-slate-200 rounded-full overflow-hidden">
+<div class="h-full bg-outline w-[10%]"></div>
+</div>
+</div>
+</div>
+<div class="pt-6 border-t border-slate-200">
+<div class="flex items-center justify-between p-4 bg-white rounded-lg">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-slate-50 rounded-lg">
+<span class="material-symbols-outlined text-primary-container">shopping_bag</span>
+</div>
+<div>
+<p class="text-xs font-bold">Best Hour</p>
+<p class="text-[10px] text-slate-500">17:00 - 18:00</p>
+</div>
+</div>
+<p class="text-sm font-bold text-primary-container">Rp 3.420.000</p>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/10 overflow-hidden">
+<div class="px-8 py-6 flex items-center justify-between border-b border-slate-50">
+<h2 class="text-lg font-bold text-primary-container">Top Selling Products</h2>
+<div class="flex gap-4">
+<button class="text-xs font-bold px-4 py-2 bg-slate-100 rounded-full">All</button>
+<button class="text-xs font-medium px-4 py-2 text-slate-500">Phones</button>
+<button class="text-xs font-medium px-4 py-2 text-slate-500">Accessories</button>
+</div>
+</div>
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low text-slate-500">
+<th class="px-8 py-4 font-sans uppercase tracking-widest text-[10px]">Product</th>
+<th class="px-8 py-4 font-sans uppercase tracking-widest text-[10px]">Category</th>
+<th class="px-8 py-4 font-sans uppercase tracking-widest text-[10px]">Quantity</th>
+<th class="px-8 py-4 font-sans uppercase tracking-widest text-[10px]">Total Revenue</th>
+<th class="px-8 py-4 font-sans uppercase tracking-widest text-[10px]">Stock Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-50">
+<tr class="hover:bg-slate-50 transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-4">
+<img alt="iPhone 15 Pro" class="w-10 h-10 rounded-lg object-cover" data-alt="close-up of a sleek titanium grey smartphone with three camera lenses against a minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnJmWQ2jsbfgsxlR7Rx-ogIpOAs1MAZKcS-OHZrBSqy1jOOOfiwZ7vXtsCXBFhKiNmoZtGwn158o3ruddhI7RLq4DPfBwVWEq13Jh4Cgsee5AM4NN6mMeh08PgZhUJFbzGyagGZU_QDVyCRMeGZtG6RecLngyIwDgQBe3fxe0OhE35ubDCDLVrC2cSxdeqFFcIPHYBNvtNMQ1L2sdeClggv9BGfbMHwpqpMGGeOQlGoiJzvEu3-HSTO2KLetaKfv24X7s08A1SZw"/>
+<div>
+<p class="font-bold text-primary-container">iPhone 15 Pro Max</p>
+<p class="text-[10px] text-slate-400">SKU: APP-15PM-256-BLK</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-5 text-sm text-on-surface-variant">Phones</td>
+<td class="px-8 py-5 font-medium">12</td>
+<td class="px-8 py-5 font-bold text-primary-container">Rp 14.388.000</td>
+<td class="px-8 py-5">
+<span class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full text-[10px] font-bold">LOW STOCK (4)</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-4">
+<img alt="AirPods Max" class="w-10 h-10 rounded-lg object-cover" data-alt="premium silver noise-cancelling headphones on a white surface with elegant shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP6ZQEtCbG-wmzOvgNIgJstU8pzGplK4aAtf8qLeSvdSCGU52IINkU8YLXRNApWa0VMl-dw7LvNdlBSUHP8XfcdKerfePZ_jarXDeTVgoKtm_wtpy80DC-JYBkTPQgbv62u0ze9e27U_Znh_WrprIbL2ParfmHjGMJaNbrN6a3iFh7W_dypnE27L08Qv63WWhorN2UNm1IijnjY_3GZR7nRBGp8A2F1POjKWuG3Z4si3YlpTrty2G4H9KvDj0t9GBZG3SmCXOqiw"/>
+<div>
+<p class="font-bold text-primary-container">AirPods Max</p>
+<p class="text-[10px] text-slate-400">SKU: APP-AMAX-SIL</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-5 text-sm text-on-surface-variant">Accessories</td>
+<td class="px-8 py-5 font-medium">8</td>
+<td class="px-8 py-5 font-bold text-primary-container">Rp 4.392.000</td>
+<td class="px-8 py-5">
+<span class="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-[10px] font-bold">IN STOCK (18)</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-4">
+<img alt="MagSafe Charger" class="w-10 h-10 rounded-lg object-cover" data-alt="white magnetic wireless charger on a dark wooden table with soft focus bokeh background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqiGxPOa69ssF8RNZpH7zdaToypoPE2GoE7n0EOe7MUyE2sz2TpJ4isoWjiUNIcO3N2nvt9UJREjMQSN2G4pCINRUFblOLvRFxZRJcxFCYR9qHMOR_tzkTp0gCiAQx_w-mQcMsfjKN2LDgyW5Oc2pLKjjwrw1TUhUlIdxbYezq0zeGVZat1KfAMUZJCyQ9QVX64SPmexlBbgzrFdJwPJffLcYXz3Cz6IURRVWlfAd7ZkYr_toazB8E6K6Br0p3TlAhPop3umQwJw"/>
+<div>
+<p class="font-bold text-primary-container">MagSafe Duo Charger</p>
+<p class="text-[10px] text-slate-400">SKU: APP-MDS-WHT</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-5 text-sm text-on-surface-variant">Accessories</td>
+<td class="px-8 py-5 font-medium">24</td>
+<td class="px-8 py-5 font-bold text-primary-container">Rp 3.096.000</td>
+<td class="px-8 py-5">
+<span class="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-[10px] font-bold">IN STOCK (42)</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-4">
+<img alt="S23 Ultra" class="w-10 h-10 rounded-lg object-cover" data-alt="modern black smartphone with multiple lenses and a stylus pen on its side, professional product photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6y__cOUNGvRN6istNfSSGFdIpnUnHJySKcT-bArpMb900ejvmC11DtYtzt4iD975Bkz8wHXm-7_bQlgZ1pmmQ4X16VgyGXCkrWfL29SwgDk9DkT7PogsKn9o9dgCGQD3bZOr7Lcq_SqTUg4bxPhqh0lFc5QBmEzzMd-RKsBFTi31pIqnT8RwStFeFrL2HS4b0Xey-ZM25Z669HJVQbe2JsARAK280kUXadOTU03keaYT3M_K0wgyQ14DlpT9FFnX7b0J3NtOyzQ"/>
+<div>
+<p class="font-bold text-primary-container">Samsung S23 Ultra</p>
+<p class="text-[10px] text-slate-400">SKU: SAM-S23U-512-PHN</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-5 text-sm text-on-surface-variant">Phones</td>
+<td class="px-8 py-5 font-medium">4</td>
+<td class="px-8 py-5 font-bold text-primary-container">Rp 4.796.000</td>
+<td class="px-8 py-5">
+<span class="bg-error-container text-on-error-container px-3 py-1 rounded-full text-[10px] font-bold">OUT OF STOCK</span>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="px-8 py-4 bg-slate-50 flex justify-between items-center">
+<p class="text-xs text-slate-500 font-medium">Showing top 4 performance items today</p>
+<button class="text-xs font-bold text-primary-container flex items-center gap-1">
+                        View Full Inventory Report
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</section>
+</div>
+</main>
+<div class="fixed bottom-8 right-8 z-[60]">
+<button class="bg-primary-container text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-90 transition-all duration-150">
+<span class="material-symbols-outlined text-2xl">print</span>
+</button>
+</div>
+</body></html>

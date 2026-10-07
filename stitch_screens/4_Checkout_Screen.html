@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PhonePOS Checkout</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#001f3f",
+                    "tertiary": "#110200",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-tertiary-fixed-variant": "#6b3a25",
+                    "on-tertiary-fixed": "#351002",
+                    "outline-variant": "#c4c6cf",
+                    "surface-container": "#edeeef",
+                    "on-background": "#191c1d",
+                    "background": "#f8f9fa",
+                    "surface-bright": "#f8f9fa",
+                    "error": "#ba1a1a",
+                    "inverse-primary": "#afc8f0",
+                    "surface-dim": "#d9dadb",
+                    "on-tertiary-container": "#b5785f",
+                    "tertiary-fixed": "#ffdbce",
+                    "primary-fixed": "#d4e3ff",
+                    "surface-container-high": "#e7e8e9",
+                    "surface-variant": "#e1e3e4",
+                    "on-secondary-fixed-variant": "#474747",
+                    "tertiary-fixed-dim": "#fdb69a",
+                    "outline": "#74777f",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#43474e",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "on-primary-container": "#6f88ad",
+                    "primary": "#000613",
+                    "tertiary-container": "#391303",
+                    "surface": "#f8f9fa",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#2e3132",
+                    "secondary-fixed": "#e4e2e1",
+                    "primary-fixed-dim": "#afc8f0",
+                    "on-secondary-container": "#656464",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#c8c6c6",
+                    "secondary-container": "#e4e2e1",
+                    "on-primary-fixed": "#001c3a",
+                    "on-surface": "#191c1d",
+                    "surface-tint": "#476083",
+                    "secondary": "#5f5e5e",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.85);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- Main POS Background Context (Blurred) -->
+<div class="fixed inset-0 flex overflow-hidden blur-sm pointer-events-none">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 bg-slate-100 flex flex-col p-4 gap-2">
+<div class="flex items-center gap-3 mb-8 px-2">
+<div class="w-10 h-10 rounded-lg bg-primary-container"></div>
+<div>
+<p class="font-bold text-blue-950">GadgetStock</p>
+<p class="font-sans uppercase tracking-widest text-[10px]">Terminal 01</p>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3 p-3 rounded-lg bg-white shadow-sm font-bold text-blue-950">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Dashboard</span>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-lg text-slate-600">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">POS</span>
+</div>
+</div>
+</aside>
+<!-- POS Workspace -->
+<main class="flex-1 flex flex-col">
+<header class="flex items-center justify-between px-6 py-3 w-full bg-slate-50 border-b border-slate-200">
+<span class="text-xl font-bold tracking-tighter text-blue-950">PhonePOS</span>
+<div class="flex gap-4">
+<span class="material-symbols-outlined">notifications</span>
+<span class="material-symbols-outlined">settings</span>
+</div>
+</header>
+<div class="p-8 grid grid-cols-3 gap-6">
+<div class="col-span-2 h-96 bg-white rounded-xl"></div>
+<div class="h-96 bg-white rounded-xl"></div>
+</div>
+</main>
+</div>
+<!-- Modal Overlay Backdrop -->
+<div class="fixed inset-0 bg-primary/20 backdrop-blur-md flex items-center justify-center z-50 p-4">
+<!-- Checkout Modal -->
+<div class="w-full max-w-5xl bg-surface-container-lowest rounded-xl shadow-[0_40px_60px_-15px_rgba(0,6,19,0.08)] flex flex-col md:flex-row overflow-hidden border border-outline-variant/10">
+<!-- Left: Transaction Summary -->
+<div class="flex-1 p-8 bg-surface-container-low border-r border-outline-variant/15">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-2xl font-bold tracking-tight text-primary-container">Checkout</h2>
+<span class="text-on-surface-variant font-label text-sm tracking-widest uppercase">Order #8821</span>
+</div>
+<div class="space-y-4 mb-8">
+<!-- Item Row -->
+<div class="flex items-center gap-4 group">
+<div class="w-16 h-16 rounded-lg bg-surface-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="sleek professional smartphone in black against a clean neutral background with soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4btJXYxElXS8JQxgnaGNccEva6dCW-h3DuOOjYxIz9oGMgk9xQmSHv2hdfrO5BaSUIIrWhoxVl6zYgVx0JvZ3CfVOfDQn14mE3DiHineYHhtRn78CCYHUlBO2vb0j71qR-eiGKdHKYyzL19QK0xxMFqPYCOZipuTLHjAHCc1Qg7s2EbUm8wfRGnY9pzrfZZ8flXr3wqiUWyMh4tMVEeUhJ6hECYiMxatOPrN2nBOtSrJC1BRDW5eIGoHVKwdxJ4--n6umHHFYhA"/>
+</div>
+<div class="flex-1">
+<h3 class="font-medium text-primary">iPhone 15 Pro Max</h3>
+<p class="text-sm text-on-surface-variant">Titanium Grey • 256GB</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-primary">Rp 18.999.000</p>
+<p class="text-xs text-on-surface-variant">Qty: 1</p>
+</div>
+</div>
+<!-- Item Row -->
+<div class="flex items-center gap-4 group">
+<div class="w-16 h-16 rounded-lg bg-surface-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="pair of premium wireless over-ear headphones on a minimalist wooden stand with soft window light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAak_I91Lqm-XqXRseFuWnkdXyfz01ewxuGZm0fHzQtPeTpZRB5JjvrVWkHySH018MhfbsnoPXw0xgSmPF0XlPC60ditOuOFPBTfjr6hS8KIyooZXhcwVfXf_Nb9lAmPv1FC9ZI124d2Z6Ba2J02UY5NxAviT7jSGI8xSzaq2EFKE22XC8ZDgDw6JAkPdTfmpCJK9P_14MpqCGk9vLXx3DlnjHWSQfksL5pq-JA1fumN_EJx36sL4xzSwwGgm2490UdNjTwHFtTUQ"/>
+</div>
+<div class="flex-1">
+<h3 class="font-medium text-primary">Studio Headphones</h3>
+<p class="text-sm text-on-surface-variant">Midnight Black</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-primary">Rp 5.499.000</p>
+<p class="text-xs text-on-surface-variant">Qty: 1</p>
+</div>
+</div>
+</div>
+<!-- Price Breakdown -->
+<div class="space-y-3 pt-6 border-t border-outline-variant/20">
+<div class="flex justify-between text-on-surface-variant">
+<span class="font-label text-xs uppercase tracking-wider">Subtotal</span>
+<span class="font-medium">Rp 24.498.000</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="font-label text-xs uppercase tracking-wider">Discount</span>
+<span class="px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold">LOYALTY5</span>
+</div>
+<span class="font-medium text-error">-Rp 1.224.900</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span class="font-label text-xs uppercase tracking-wider">Tax (8.25%)</span>
+<span class="font-medium">Rp 2.021.085</span>
+</div>
+</div>
+<!-- Applied Discount Input -->
+<div class="mt-8 flex gap-2">
+<input class="flex-1 bg-surface-container-lowest border-none rounded-lg px-4 py-3 text-sm focus:ring-1 focus:ring-primary-container outline-none transition-all placeholder:text-outline" placeholder="Add Discount Code" type="text"/>
+<button class="px-4 py-2 bg-secondary-container text-on-secondary-container rounded-lg font-bold text-sm uppercase tracking-widest hover:bg-surface-tint hover:text-white transition-colors">Apply</button>
+</div>
+</div>
+<!-- Right: Payment Execution -->
+<div class="w-full md:w-[420px] p-8 flex flex-col justify-between bg-surface-container-lowest">
+<div>
+<h3 class="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant mb-6">Payment Method</h3>
+<div class="grid grid-cols-1 gap-3">
+<!-- Card Option -->
+<button class="flex items-center gap-4 p-4 rounded-xl bg-primary-container text-white border-2 border-primary-container transition-all shadow-lg ring-4 ring-primary-container/10">
+<span class="material-symbols-outlined text-2xl">credit_card</span>
+<div class="text-left">
+<p class="font-bold text-sm">Credit / Debit Card</p>
+<p class="text-[10px] opacity-70 tracking-widest uppercase">Tap, Chip or Swipe</p>
+</div>
+<span class="material-symbols-outlined ml-auto">check_circle</span>
+</button>
+<!-- Cash Option -->
+<button class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-low text-on-surface border-2 border-transparent hover:border-outline-variant transition-all group">
+<span class="material-symbols-outlined text-2xl text-on-surface-variant group-hover:text-primary-container transition-colors">payments</span>
+<div class="text-left">
+<p class="font-bold text-sm">Cash Payment</p>
+<p class="text-[10px] text-on-surface-variant tracking-widest uppercase">Physical Currency</p>
+</div>
+</button>
+<!-- Digital Option -->
+<button class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-low text-on-surface border-2 border-transparent hover:border-outline-variant transition-all group">
+<span class="material-symbols-outlined text-2xl text-on-surface-variant group-hover:text-primary-container transition-colors">qr_code_2</span>
+<div class="text-left">
+<p class="font-bold text-sm">Digital Wallet</p>
+<p class="text-[10px] text-on-surface-variant tracking-widest uppercase">Apple Pay, Google Pay</p>
+</div>
+</button>
+</div>
+<!-- Customer Link -->
+<div class="mt-8 p-4 rounded-xl border border-outline-variant/30 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="professional portrait of a man with a friendly expression in a modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtrbmRhz8xyBuqkA5EF_ngxcFKW1cDvo1dgYaP3e6fVUr9vlXK299e35QmmVxSYvblUJmnt1H4HFDuMrb926vOidohf86468kkuw6Su9c8CBK-Dv3vAzmwLG7yhBTsBb98_4dc_pTAXqxcAoRWZvgIRJIq2unISX_a06lMoTtQWK2CDrt8BvDawuDrTYWIEJ1P_AwsjAKopR_w01_ZrS2swsobSTjAfX_pozk-8Z-8pK7aWHFQZajNwZBwHMwzJ39fa-hcUH936A"/>
+</div>
+<div class="flex-1">
+<p class="font-bold text-sm text-primary">Marcus Richardson</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Premium Member</p>
+</div>
+<button class="text-on-primary-container hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</div>
+<!-- Total and Action -->
+<div class="mt-12">
+<div class="flex flex-col gap-1 mb-6">
+<span class="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant">Total Amount Due</span>
+<div class="text-5xl font-extrabold tracking-tighter text-primary-container leading-none">Rp 25.294.185</div>
+</div>
+<div class="flex gap-3">
+<button class="flex-1 px-6 py-5 bg-primary-container text-white rounded-xl font-bold flex items-center justify-center gap-3 shadow-xl active:scale-95 transition-all bg-gradient-to-br from-primary to-primary-container">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+                            COMPLETE PAYMENT
+                        </button>
+<button class="px-5 py-5 bg-surface-container-high text-on-surface rounded-xl hover:bg-error/10 hover:text-error transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Background Decorative Elements -->
+<div class="fixed top-0 right-0 -z-10 p-20">
+<div class="w-96 h-96 bg-primary-container/5 rounded-full blur-3xl"></div>
+</div>
+<div class="fixed bottom-0 left-0 -z-10 p-20">
+<div class="w-[500px] h-[500px] bg-tertiary-container/5 rounded-full blur-3xl"></div>
+</div>
+</body></html>

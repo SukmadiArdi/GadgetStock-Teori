@@ -1,0 +1,167 @@
+<!-- pages/settings.html -->
+<div class="fade-in">
+  <!-- Page Header -->
+  <div style="margin-bottom:2rem;">
+    <h1 style="font-size:1.875rem;font-weight:800;letter-spacing:-0.02em;color:var(--text-blue);">Settings</h1>
+    <p style="font-size:0.8125rem;color:var(--on-surface-variant);margin-top:0.25rem;">Manage your profile and application preferences</p>
+  </div>
+
+  <div id="settings-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+    
+    <!-- Left Column -->
+    <div style="display:flex;flex-direction:column;gap:2rem;">
+      
+      <!-- 1. Profile Settings -->
+      <div class="card" style="padding:1.5rem;">
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem;border-bottom:1px solid var(--surface-container-high);padding-bottom:1rem;">
+          <div style="width:2.5rem;height:2.5rem;background:var(--primary-container);color:var(--on-primary-container);border-radius:0.5rem;display:flex;align-items:center;justify-content:center;">
+            <span class="material-symbols-outlined">person</span>
+          </div>
+          <div>
+            <h2 style="font-size:1rem;font-weight:700;color:var(--text-blue);">Account Profile</h2>
+            <p style="font-size:0.625rem;color:var(--on-surface-variant);text-transform:uppercase;">Personal Information</p>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="form-group">
+            <label class="form-label">Employee ID (Read Only)</label>
+            <input type="text" id="set-empid" class="form-input" disabled style="background:var(--surface-container-low);color:var(--on-surface-variant);" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Role (Read Only)</label>
+            <input type="text" id="set-role" class="form-input" disabled style="background:var(--surface-container-low);color:var(--on-surface-variant);text-transform:capitalize;" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="set-name" class="form-input" autocomplete="off" />
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="updateProfile()" style="align-self:flex-start;">Update Profile</button>
+        </div>
+      </div>
+
+      <!-- 2. Security Settings -->
+      <div class="card" style="padding:1.5rem;">
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem;border-bottom:1px solid var(--surface-container-high);padding-bottom:1rem;">
+          <div style="width:2.5rem;height:2.5rem;background:var(--error-container);color:var(--on-error-container);border-radius:0.5rem;display:flex;align-items:center;justify-content:center;">
+            <span class="material-symbols-outlined">lock</span>
+          </div>
+          <div>
+            <h2 style="font-size:1rem;font-weight:700;color:var(--text-blue);">Security</h2>
+            <p style="font-size:0.625rem;color:var(--on-surface-variant);text-transform:uppercase;">Change Password</p>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="form-group">
+            <label class="form-label">New Password</label>
+            <div style="position:relative;">
+              <input type="password" id="set-pass1" class="form-input" placeholder="Min. 6 characters" style="padding-right:2.75rem;" autocomplete="new-password" />
+              <button type="button" onclick="togglePass('set-pass1','eye-pass1')" tabindex="-1"
+                style="position:absolute;right:0.625rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--on-surface-variant);display:flex;align-items:center;padding:0.25rem;">
+                <span class="material-symbols-outlined" id="eye-pass1" style="font-size:1.125rem;">visibility</span>
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Confirm New Password</label>
+            <div style="position:relative;">
+              <input type="password" id="set-pass2" class="form-input" placeholder="Repeat new password" style="padding-right:2.75rem;" autocomplete="new-password" />
+              <button type="button" onclick="togglePass('set-pass2','eye-pass2')" tabindex="-1"
+                style="position:absolute;right:0.625rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--on-surface-variant);display:flex;align-items:center;padding:0.25rem;">
+                <span class="material-symbols-outlined" id="eye-pass2" style="font-size:1.125rem;">visibility</span>
+              </button>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="updatePassword()" style="align-self:flex-start;">Change Password</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column -->
+    <div style="display:flex;flex-direction:column;gap:2rem;">
+      
+      <!-- 3. App Preferences -->
+      <div class="card" style="padding:1.5rem;">
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem;border-bottom:1px solid var(--surface-container-high);padding-bottom:1rem;">
+          <div style="width:2.5rem;height:2.5rem;background:var(--secondary-container);color:var(--on-secondary-container);border-radius:0.5rem;display:flex;align-items:center;justify-content:center;">
+            <span class="material-symbols-outlined">desktop_windows</span>
+          </div>
+          <div>
+            <h2 style="font-size:1rem;font-weight:700;color:var(--text-blue);">App Preferences</h2>
+            <p style="font-size:0.625rem;color:var(--on-surface-variant);text-transform:uppercase;">Terminal & Display</p>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="form-group">
+            <label class="form-label">Terminal / Register Name</label>
+            <select id="set-terminal" class="form-input form-select" onchange="saveAppPrefs()">
+              <option value="Terminal 01">Terminal 01 (Main Cashier)</option>
+              <option value="Terminal 02">Terminal 02 (Secondary)</option>
+              <option value="Back Office">Back Office</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Items Per Page</label>
+            <div style="display:flex;align-items:center;background:var(--surface-container-low);border-radius:0.5rem;overflow:hidden;height:2.5rem;border:1px solid rgba(196,198,207,0.5);">
+              <button onclick="adjustPosLimit(-5)" style="border:none;background:none;padding:0 0.75rem;cursor:pointer;color:var(--on-surface);"><span class="material-symbols-outlined" style="font-size:1.125rem;">remove</span></button>
+              <input type="number" id="set-pos-limit" class="form-input" min="5" max="100" style="border:none;text-align:center;padding:0;background:transparent;font-weight:700;" readonly />
+              <button onclick="adjustPosLimit(5)" style="border:none;background:none;padding:0 0.75rem;cursor:pointer;color:var(--on-surface);"><span class="material-symbols-outlined" style="font-size:1.125rem;">add</span></button>
+            </div>
+          </div>
+          <p style="font-size:0.6875rem;color:var(--on-surface-variant);margin-top:0.25rem;">Set the number of products displayed per page in POS and Inventory.</p>
+        </div>
+      </div>
+
+      <!-- 4. Store Settings (Manager Only) -->
+      <div id="manager-settings-section" class="card" style="padding:1.5rem;display:none;">
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem;border-bottom:1px solid var(--surface-container-high);padding-bottom:1rem;">
+          <div style="width:2.5rem;height:2.5rem;background:#fef08a;color:#854d0e;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;">
+            <span class="material-symbols-outlined">store</span>
+          </div>
+          <div>
+            <h2 style="font-size:1rem;font-weight:700;color:var(--text-blue);">Store Settings</h2>
+            <p style="font-size:0.625rem;color:var(--on-surface-variant);text-transform:uppercase;">Manager Only Configuration</p>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="form-group">
+            <label class="form-label">Store Name (For Receipts)</label>
+            <input type="text" id="set-store-name" class="form-input" onchange="saveStorePrefs()" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tax Rate / PPN (%)</label>
+            <input type="text" id="set-tax-rate" class="form-input" placeholder="e.g. 11" inputmode="decimal" oninput="this.value=this.value.replace(/[^0-9.]/g,'')" onchange="saveStorePrefs()" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Receipt Footer Message</label>
+            <textarea id="set-footer" class="form-input" rows="2" placeholder="e.g. Thank you for your purchase!" onchange="saveStorePrefs()"></textarea>
+          </div>
+          <div class="form-group" style="margin-top:0.5rem;">
+            <label class="form-label" style="margin-bottom:0.75rem;">Enabled Payment Methods</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;" id="set-pay-methods">
+              <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.8125rem;cursor:pointer;">
+                <input type="checkbox" value="cash" checked onchange="saveStorePrefs()" /> Cash
+              </label>
+              <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.8125rem;cursor:pointer;">
+                <input type="checkbox" value="qris" checked onchange="saveStorePrefs()" /> QRIS
+              </label>
+              <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.8125rem;cursor:pointer;">
+                <input type="checkbox" value="debit" checked onchange="saveStorePrefs()" /> Debit Card
+              </label>
+              <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.8125rem;cursor:pointer;">
+                <input type="checkbox" value="credit" checked onchange="saveStorePrefs()" /> Credit Card
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/js/pages/settings.js"></script>

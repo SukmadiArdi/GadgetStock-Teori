@@ -1,0 +1,107 @@
+/* variables.css */
+/* ─── CSS Variables (Design Tokens) ────────────────────────── */
+:root {
+  --primary-container:       #001f3f;
+  --primary:                 #000613;
+  --on-primary:              #ffffff;
+  --on-primary-container:    #6f88ad;
+  --primary-fixed:           #d4e3ff;
+  --primary-fixed-dim:       #afc8f0;
+  --inverse-primary:         #afc8f0;
+
+  --secondary:               #5f5e5e;
+  --on-secondary:            #ffffff;
+  --secondary-container:     #e4e2e1;
+  --on-secondary-container:  #656464;
+  --secondary-fixed:         #e4e2e1;
+  --secondary-fixed-dim:     #c8c6c6;
+
+  --tertiary:                #110200;
+  --on-tertiary:             #ffffff;
+  --tertiary-container:      #391303;
+  --on-tertiary-container:   #b5785f;
+  --tertiary-fixed:          #ffdbce;
+  --tertiary-fixed-dim:      #fdb69a;
+
+  --background:              #f8f9fa;
+  --on-background:           #191c1d;
+  --surface:                 #f8f9fa;
+  --on-surface:              #191c1d;
+  --surface-variant:         #e1e3e4;
+  --on-surface-variant:      #43474e;
+  --surface-bright:          #f8f9fa;
+  --surface-dim:             #d9dadb;
+  --surface-tint:            #476083;
+
+  --surface-container-lowest: #ffffff;
+  --surface-container-low:   #f3f4f5;
+  --surface-container:       #edeeef;
+  --surface-container-high:  #e7e8e9;
+  --surface-container-highest: #e1e3e4;
+
+  --error:                   #ba1a1a;
+  --on-error:                #ffffff;
+  --error-container:         #ffdad6;
+  --on-error-container:      #93000a;
+
+  --outline:                 #74777f;
+  --outline-variant:         #c4c6cf;
+  --inverse-surface:         #2e3132;
+  --inverse-on-surface:      #f0f1f2;
+
+  --text-blue:               #1e3a5f;
+
+  --radius-sm:  0.25rem;
+  --radius-md:  0.5rem;
+  --radius-lg:  0.75rem;
+  --radius-full: 9999px;
+
+  --sidebar-w: 16rem; /* 256px = w-64 */
+  --header-h:  3.5rem;
+  --tax-rate:  0.085;
+}
+
+[data-theme="dark"] {
+  --primary-container:       #0a2d52;
+  --primary:                 #6f88ad;
+  --on-primary:              #ffffff;
+  --on-primary-container:    #d4e3ff;
+
+  --text-blue:               #60a5fa;
+
+  --secondary:               #c8c6c6;
+  --on-secondary:            #2e3132;
+  --secondary-container:     #333537;
+  --on-secondary-container:  #e4e2e1;
+
+  --tertiary:                #fdb69a;
+  --on-tertiary:             #391303;
+  --tertiary-container:      #522415;
+  --on-tertiary-container:   #ffdbce;
+
+  --background:              #121212;
+  --on-background:           #e1e3e4;
+  --surface:                 #121212;
+  --on-surface:              #e1e3e4;
+  --surface-variant:         #2d3135;
+  --on-surface-variant:      #a8aab0;
+  --surface-bright:          #1e1e1e;
+  --surface-dim:             #0f0f0f;
+  --surface-tint:            #afc8f0;
+
+  --surface-container-lowest: #0c0c0c;
+  --surface-container-low:   #181818;
+  --surface-container:       #202020;
+  --surface-container-high:  #282828;
+  --surface-container-highest: #303030;
+
+  --error:                   #ffb4ab;
+  --on-error:                #690005;
+  --error-container:         #93000a;
+  --on-error-container:      #ffdad6;
+
+  --outline:                 #606469;
+  --outline-variant:         #3b3e42;
+  --inverse-surface:         #e1e3e4;
+  --inverse-on-surface:      #121212;
+}

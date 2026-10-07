@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Transaction Successful - PhonePOS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#001f3f",
+                    "tertiary": "#110200",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-tertiary-fixed-variant": "#6b3a25",
+                    "on-tertiary-fixed": "#351002",
+                    "outline-variant": "#c4c6cf",
+                    "surface-container": "#edeeef",
+                    "on-background": "#191c1d",
+                    "background": "#f8f9fa",
+                    "surface-bright": "#f8f9fa",
+                    "error": "#ba1a1a",
+                    "inverse-primary": "#afc8f0",
+                    "surface-dim": "#d9dadb",
+                    "on-tertiary-container": "#b5785f",
+                    "tertiary-fixed": "#ffdbce",
+                    "primary-fixed": "#d4e3ff",
+                    "surface-container-high": "#e7e8e9",
+                    "surface-variant": "#e1e3e4",
+                    "on-secondary-fixed-variant": "#474747",
+                    "tertiary-fixed-dim": "#fdb69a",
+                    "outline": "#74777f",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#43474e",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "on-primary-container": "#6f88ad",
+                    "primary": "#000613",
+                    "tertiary-container": "#391303",
+                    "surface": "#f8f9fa",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#2e3132",
+                    "secondary-fixed": "#e4e2e1",
+                    "primary-fixed-dim": "#afc8f0",
+                    "on-secondary-container": "#656464",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#c8c6c6",
+                    "secondary-container": "#e4e2e1",
+                    "on-primary-fixed": "#001c3a",
+                    "on-surface": "#191c1d",
+                    "surface-tint": "#476083",
+                    "secondary": "#5f5e5e",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .cloud-shadow {
+            box-shadow: 0 40px 60px -15px rgba(0, 6, 19, 0.06);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white; }
+            .receipt-container { 
+                box-shadow: none !important; 
+                margin: 0 !important; 
+                padding: 0 !important;
+                width: 100% !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface min-h-screen flex items-center justify-center p-6 selection:bg-primary-fixed">
+<main class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+<div class="md:col-span-7 flex flex-col gap-8 order-2 md:order-1">
+<header class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="bg-primary-container text-on-primary p-3 rounded-xl">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<h1 class="text-3xl font-extrabold tracking-tight text-primary-container leading-none uppercase">Payment Success</h1>
+<p class="text-on-surface-variant font-medium mt-1">Transaction completed for GadgetStock</p>
+</div>
+</div>
+</header>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-6 rounded-xl border border-transparent">
+<span class="block font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">Order ID</span>
+<p class="text-lg font-bold tracking-tight text-primary-container">#POS-992-04X</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl">
+<span class="block font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">Terminal</span>
+<p class="text-lg font-bold tracking-tight text-primary-container">Terminal 01</p>
+</div>
+</div>
+<div class="no-print flex flex-col gap-3">
+<button class="w-full py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold rounded-xl shadow-lg hover:surface-tint transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add</span>
+                    New Sale
+                </button>
+<div class="grid grid-cols-2 gap-3">
+<button class="py-4 bg-surface-container-highest text-primary-container font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-surface-variant transition-colors" onclick="window.print()">
+<span class="material-symbols-outlined">print</span>
+                        Print Receipt
+                    </button>
+<button class="py-4 bg-surface-container-highest text-primary-container font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">mail</span>
+                        Email Digital
+                    </button>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border-l-4 border-primary-container">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-primary-container">info</span>
+<div>
+<h4 class="font-bold text-primary-container">Loyalty Points Earned</h4>
+<p class="text-on-surface-variant text-sm">Customer John Doe earned 124 points from this transaction.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="md:col-span-5 order-1 md:order-2 receipt-container">
+<div class="bg-surface-container-lowest cloud-shadow rounded-xl overflow-hidden relative">
+<div class="absolute top-0 left-0 w-full h-1 bg-primary-container"></div>
+<div class="p-8 flex flex-col gap-8">
+<div class="flex justify-between items-start">
+<div>
+<h2 class="text-xl font-extrabold tracking-tighter text-primary-container">PhonePOS</h2>
+<p class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">GadgetStock Outlet</p>
+</div>
+<div class="text-right">
+<p class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">GadgetStock Outlet</p>
+<p class="text-xs font-bold text-primary-container">Oct 24, 2023 • 14:42</p>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-center bg-surface-container-low p-3 rounded-lg">
+<div class="flex flex-col">
+<span class="font-bold text-sm text-primary-container">iPhone 15 Pro Max</span>
+<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-wider">SKU: APP-I15-PM-256</span>
+</div>
+<span class="font-bold text-sm text-primary-container">Rp 49.000</span>
+</div>
+<div class="flex justify-between items-center p-3">
+<div class="flex flex-col">
+<span class="font-bold text-sm text-primary-container">Clear Case MagSafe</span>
+<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-wider">SKU: APP-ACC-CLR-15</span>
+</div>
+<span class="font-bold text-sm text-primary-container">Rp 49.000</span>
+</div>
+<div class="flex justify-between items-center bg-surface-container-low p-3 rounded-lg">
+<div class="flex flex-col">
+<span class="font-bold text-sm text-primary-container">20W USB-C Adapter</span>
+<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-wider">SKU: APP-PWR-20W</span>
+</div>
+<span class="font-bold text-sm text-primary-container">Rp 19.000</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 pt-6">
+<div class="flex justify-between text-sm font-medium text-on-surface-variant">
+<span>Subtotal</span>
+<span>Rp 1.267.000</span>
+</div>
+<div class="flex justify-between text-sm font-medium text-on-surface-variant">
+<span>Tax (8.5%)</span>
+<span>Rp 107.700</span>
+</div>
+<div class="flex justify-between pt-4 mt-2">
+<span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant self-end">Grand Total</span>
+<span class="text-4xl font-extrabold tracking-tighter text-primary-container leading-none">Rp 1.374.700</span>
+</div>
+</div>
+<div class="pt-8 flex flex-col items-center gap-4 border-t border-outline-variant border-opacity-15">
+<div class="w-full h-12 bg-surface-container-high relative overflow-hidden rounded flex items-center justify-center">
+<div class="w-full h-full bg-[repeating-linear-gradient(90deg,transparent,transparent_2px,#191c1d_2px,#191c1d_4px)] opacity-20"></div>
+<span class="absolute bg-surface-container-lowest px-4 font-label text-[9px] uppercase tracking-[0.3em] text-on-surface-variant">POS-992-04X-102423</span>
+</div>
+<p class="text-[10px] text-center text-on-surface-variant px-4">
+                            Thank you for shopping at PhonePOS. Goods sold are returnable within 7 days with original packaging and receipt.
+                        </p>
+</div>
+</div>
+<div class="h-4 w-full bg-surface-container-low relative">
+<div class="absolute -top-2 left-0 w-full h-4 bg-[radial-gradient(circle,transparent_8px,#f3f4f5_8px)] bg-[length:16px_16px]"></div>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-8 left-8 no-print">
+<div class="flex items-center gap-4 bg-surface-container-lowest p-3 pr-6 rounded-full cloud-shadow border border-outline-variant border-opacity-15">
+<img alt="Manager Profile" class="w-10 h-10 rounded-full object-cover" data-alt="Professional store manager portrait with a warm smile in a clean modern office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdqP4Ob9TxPl6mpO1isZ21imGHPVKit6Sc29ShZ5d5OKrhYcrajJBSzxTn5eO1n-8D-AEbWJ1bjY37h433wOeAtFly2tJdMKPZIyr2LqZsTjPmrO1XK_L4B2EjSYCE5bw82FRZFBJc_0Ih2C7W1Zx9AfjsI6ZifBCLn9BWXdt-qKGnGwfuCSyXIu6evKlssWBTky3If28DWPsXwaXOj2b5A4zLpLUWG8qSs4Hju4l1AwRsJXMH-AVUt0TJ6rwjJGhXGLRk6GzxIQ"/>
+<div>
+<p class="font-bold text-xs text-primary-container leading-none">Marcus Thorne</p>
+<p class="text-[10px] font-medium text-on-surface-variant uppercase tracking-wider">Store Manager</p>
+</div>
+</div>
+</div>
+</body></html>

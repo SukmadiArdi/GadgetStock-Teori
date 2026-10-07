@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PhonePOS Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#001f3f",
+                    "tertiary": "#110200",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-tertiary-fixed-variant": "#6b3a25",
+                    "on-tertiary-fixed": "#351002",
+                    "outline-variant": "#c4c6cf",
+                    "surface-container": "#edeeef",
+                    "on-background": "#191c1d",
+                    "background": "#f8f9fa",
+                    "surface-bright": "#f8f9fa",
+                    "error": "#ba1a1a",
+                    "inverse-primary": "#afc8f0",
+                    "surface-dim": "#d9dadb",
+                    "on-tertiary-container": "#b5785f",
+                    "tertiary-fixed": "#ffdbce",
+                    "primary-fixed": "#d4e3ff",
+                    "surface-container-high": "#e7e8e9",
+                    "surface-variant": "#e1e3e4",
+                    "on-secondary-fixed-variant": "#474747",
+                    "tertiary-fixed-dim": "#fdb69a",
+                    "outline": "#74777f",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "on-surface-variant": "#43474e",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "on-primary-container": "#6f88ad",
+                    "primary": "#000613",
+                    "tertiary-container": "#391303",
+                    "surface": "#f8f9fa",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#2e3132",
+                    "secondary-fixed": "#e4e2e1",
+                    "primary-fixed-dim": "#afc8f0",
+                    "on-secondary-container": "#656464",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#c8c6c6",
+                    "secondary-container": "#e4e2e1",
+                    "on-primary-fixed": "#001c3a",
+                    "on-surface": "#191c1d",
+                    "surface-tint": "#476083",
+                    "secondary": "#5f5e5e",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- SideNavBar (Desktop) -->
+<aside class="hidden md:flex flex-col p-4 gap-2 h-screen w-64 fixed left-0 top-0 bg-slate-100 dark:bg-slate-950 z-50">
+<div class="flex items-center gap-3 px-2 py-4 mb-4">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" data-icon="cell_tower">cell_tower</span>
+</div>
+<div>
+<h1 class="font-bold text-blue-950 dark:text-blue-100">GadgetStock</h1>
+<p class="font-sans uppercase tracking-widest text-[10px] text-slate-500">Terminal 01</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 bg-white dark:bg-slate-900 text-blue-950 dark:text-blue-200 rounded-lg shadow-sm font-bold transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:text-blue-950 dark:hover:text-blue-200 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="point_of_sale">point_of_sale</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">POS</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:text-blue-950 dark:hover:text-blue-200 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:text-blue-950 dark:hover:text-blue-200 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Transactions</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:text-blue-950 dark:hover:text-blue-200 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:text-blue-950 dark:hover:text-blue-200 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">Analytics</span>
+</a>
+</nav>
+<button class="mt-auto bg-primary-container text-on-primary py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold transition-transform active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span class="font-sans uppercase tracking-widest text-[10px]">New Sale</span>
+</button>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-64 min-h-screen">
+<!-- TopNavBar -->
+<header class="w-full top-0 sticky z-40 flex items-center justify-between px-6 py-3 bg-slate-50 dark:bg-slate-900">
+<div class="flex items-center gap-4">
+<h2 class="text-xl font-bold tracking-tighter text-blue-950 dark:text-blue-100">PhonePOS</h2>
+<div class="hidden lg:flex items-center bg-slate-200 dark:bg-slate-800 rounded-full px-4 py-1.5 gap-2 ml-4">
+<span class="material-symbols-outlined text-slate-500 text-sm" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-xs w-48 text-on-surface" placeholder="Search orders, SKU..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold text-on-surface">Alex Manager</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Terminal Admin</p>
+</div>
+<img alt="Manager Profile" class="w-8 h-8 rounded-full border border-slate-200 object-cover" data-alt="professional portrait of a store manager in a clean modern retail setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyDJnqtpNxuzpJElwUQ-74f1s-xoRHgG_S40CSQSjPiqJh2a940L22_OM0hy-96UStkfOmQLZiiVLDPJxfLqqNfVNHwz3yfVbkLrvdzg1cXvj9xGItNL_WfO4NgDegMSRVX8FYLaonQNKhNI4F6T_uF0sZLOI17l5Qfr26ZAaz55Jp-qquTEhdAYs7IzUy_tPNQAXO18zKFGlZVdH24onT0EM1WGJb75S2hOfU1_n6YrAgWjwefeyiJFlDLoiO7dNz_VF-yh05Rw"/>
+</div>
+</div>
+</header>
+<div class="p-6 md:p-8 space-y-8">
+<!-- Hero Metrics Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<!-- Revenue Card -->
+<div class="md:col-span-2 bg-primary-container p-8 rounded-xl relative overflow-hidden flex flex-col justify-between min-h-[220px]">
+<div class="relative z-10">
+<p class="text-on-primary-container font-sans uppercase tracking-widest text-[10px] mb-2">Total Revenue (Today)</p>
+<h3 class="text-on-primary text-5xl font-bold tracking-tight">Rp 14.284.500</h3>
+</div>
+<div class="relative z-10 flex items-center gap-2">
+<div class="bg-white/10 px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-green-400 text-sm" data-icon="trending_up">trending_up</span>
+<span class="text-on-primary text-xs font-medium">+12.5%</span>
+</div>
+<p class="text-on-primary-container text-xs italic">vs yesterday</p>
+</div>
+<!-- Aesthetic Gradient Overlay -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+</div>
+<!-- Orders Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl flex flex-col justify-between shadow-sm border border-outline-variant/15">
+<div class="flex justify-between items-start">
+<div class="bg-surface-container-high p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary" data-icon="shopping_bag">shopping_bag</span>
+</div>
+<p class="font-sans uppercase tracking-widest text-[10px] text-on-surface-variant">Daily Orders</p>
+</div>
+<div>
+<h3 class="text-3xl font-bold text-on-surface tracking-tight">42</h3>
+<p class="text-xs text-on-surface-variant mt-1">12 new in last hour</p>
+</div>
+</div>
+<!-- Inventory Summary Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl flex flex-col justify-between shadow-sm border border-outline-variant/15">
+<div class="flex justify-between items-start">
+<div class="bg-surface-container-high p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary" data-icon="inventory">inventory</span>
+</div>
+<p class="font-sans uppercase tracking-widest text-[10px] text-on-surface-variant">Stock Value</p>
+</div>
+<div>
+<h3 class="text-3xl font-bold text-on-surface tracking-tight">1,128</h3>
+<p class="text-xs text-on-surface-variant mt-1">Across 8 categories</p>
+</div>
+</div>
+</div>
+<!-- Detailed Section Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Low Stock Alert Widget (Column 1-2) -->
+<div class="lg:col-span-2 space-y-4">
+<div class="flex items-center justify-between">
+<h4 class="text-lg font-bold text-blue-950">Critical Stock Alerts</h4>
+<button class="text-xs font-bold text-on-primary-container hover:underline uppercase tracking-wider">Manage Inventory</button>
+</div>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant/15 shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-6 py-4 font-sans uppercase tracking-widest text-[10px] text-slate-500">Product Item</th>
+<th class="px-6 py-4 font-sans uppercase tracking-widest text-[10px] text-slate-500">SKU</th>
+<th class="px-6 py-4 font-sans uppercase tracking-widest text-[10px] text-slate-500">Stock</th>
+<th class="px-6 py-4 font-sans uppercase tracking-widest text-[10px] text-slate-500">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/15">
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400" data-icon="smartphone">smartphone</span>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">iPhone 15 Pro Max</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Titanium Blue / 256GB</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-xs font-mono text-on-surface-variant">IP15-PM-TB-256</td>
+<td class="px-6 py-4">
+<span class="text-sm font-bold text-error">2</span>
+</td>
+<td class="px-6 py-4">
+<span class="bg-error-container text-on-error-container px-2 py-1 rounded-full text-[10px] font-bold uppercase">Critical</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400" data-icon="headphones">headphones</span>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">AirPods Pro (2nd Gen)</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Wireless Charging Case</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-xs font-mono text-on-surface-variant">APP-G2-MW</td>
+<td class="px-6 py-4">
+<span class="text-sm font-bold text-tertiary-container">5</span>
+</td>
+<td class="px-6 py-4">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-1 rounded-full text-[10px] font-bold uppercase">Low Stock</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400" data-icon="watch">watch</span>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Samsung Galaxy Watch 6</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Silver / 44mm</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-xs font-mono text-on-surface-variant">SG-W6-SLV-44</td>
+<td class="px-6 py-4">
+<span class="text-sm font-bold text-error">0</span>
+</td>
+<td class="px-6 py-4">
+<span class="bg-error text-on-error px-2 py-1 rounded-full text-[10px] font-bold uppercase">Out of stock</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Sales Trends / Recent Activity (Column 3) -->
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<h4 class="text-lg font-bold text-blue-950">Recent Sales</h4>
+<button class="material-symbols-outlined text-slate-400" data-icon="more_horiz">more_horiz</button>
+</div>
+<div class="space-y-3">
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/15 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img alt="Customer" class="w-full h-full object-cover" data-alt="portrait of a male customer in a bright store environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABVhikg7xTH7PbDj_7TFDFY-Qp_VQBg-_P-55igM04Q6BP0B5phzeiQ_MC9ITYtTJbEJWG6scp8ZP69ElYDsHtgdwebjM3QX5tJet8UNIu74FMhi4FSCCEzqlACaMViSZXXIs37xCmpX30cCCykq7a8Xvx1j9jIqvkrfEnFtepF7MHM2ytVHGlS42ppX0PbLgWIzF_TteVVKEgPUUEBUZmcgQAXWjvz0tvUUNU1kTP0GECNvtgRnGuXx0pUsphz_jCns7whaLZPQ"/>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-on-surface">Johnathan Doe</p>
+<p class="text-[10px] text-on-surface-variant">Galaxy S23 Ultra • 12:45 PM</p>
+</div>
+<p class="text-sm font-bold text-primary">Rp 1.199.000</p>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/15 flex items-center gap-4 opacity-80">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img alt="Customer" class="w-full h-full object-cover" data-alt="portrait of a female customer smiling in a retail shop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTrmIa_TiCkdvpJW3Pd-kVBPu32qwkIYfK4jd5VM1XrFYYVcjQBtxgzVo_9kyPI4FyIo1PE7JE5KXyQter3xzAIzxlWPhxwcU9tjGXHHZpniSdl90g8Dgny1eZjOenOAjQPrzHTOkscU7jowzW5xbnaPntdUlW_ahWkjRPVgsl9zHVrrncdXODy1YZ9YaQR55sZngwyafU0gaAu2c971fb-jqI3gSOBhr9uL-eN9lRM0h805thgLM2ZDnmnBnfc-oKrVrtFVF2fw"/>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-on-surface">Sarah Miller</p>
+<p class="text-[10px] text-on-surface-variant">iPhone Case • 11:30 AM</p>
+</div>
+<p class="text-sm font-bold text-primary">Rp 45.000</p>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-outline-variant/15 flex items-center gap-4 opacity-60">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img alt="Customer" class="w-full h-full object-cover" data-alt="portrait of a young man with glasses in a modern office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBA_1h4oCSSEp2H9qQQ9PsgV1f7OeW-i2fSCCbM11AwpVWVL1nH7p8KWP5EOxOCcX7MEB4UsZXir5f7_0daNYiHoOeO_JQcj-UlsBxJu8hLGEfqDNTDO8V7khC6C9PhgES3Rg_Q2oC-YUnV2selwvKefYLkkxSMyq54AU_oXUFlwZxVox9ELiYmwTZX8rC0V5AFsg7A_jDQhnoZig4Vpv2s2_g4ahZW6RfckV9IFcc0pRsaTjRfJFJOyFSKz9WgY9tVHPTZ20yq2A"/>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-on-surface">Robert King</p>
+<p class="text-[10px] text-on-surface-variant">MacBook Air M2 • 10:15 AM</p>
+</div>
+<p class="text-sm font-bold text-primary">Rp 1.299.000</p>
+</div>
+</div>
+<!-- Quick Stock Take CTA Card -->
+<div class="mt-6 bg-secondary-container p-6 rounded-xl border-2 border-dashed border-outline-variant relative overflow-hidden">
+<div class="relative z-10">
+<h5 class="text-sm font-bold text-on-secondary-container">Run Quick Audit?</h5>
+<p class="text-xs text-on-secondary-container/70 mb-4">Validate physical stock vs digital records for Terminal 01.</p>
+<button class="bg-primary-container text-on-primary px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider">Start Audit</button>
+</div>
+<span class="material-symbols-outlined absolute -right-4 -bottom-4 text-7xl text-on-secondary-container/5 transform -rotate-12" data-icon="inventory_2">inventory_2</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-slate-50 dark:bg-slate-900 px-6 py-3 flex items-center justify-between border-t border-slate-200 dark:border-slate-800 z-50">
+<a class="flex flex-col items-center gap-1 text-blue-950 dark:text-blue-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Dash</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined" data-icon="point_of_sale">point_of_sale</span>
+<span class="text-[10px] font-medium uppercase tracking-tighter">POS</span>
+</a>
+<div class="bg-primary-container p-3 rounded-full -mt-10 shadow-lg text-on-primary">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</div>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="text-[10px] font-medium uppercase tracking-tighter">Stock</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-[10px] font-medium uppercase tracking-tighter">Stats</span>
+</a>
+</nav>
+</body></html>

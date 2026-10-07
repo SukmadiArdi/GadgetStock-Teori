@@ -1,0 +1,470 @@
+<!-- pages/auth.html - Premium Login & Register UI -->
+<style>
+#auth-page {
+  /* Force Light Mode variables specifically for the auth page */
+  --primary-container:       #001f3f;
+  --primary:                 #000613;
+  --on-primary:              #ffffff;
+  --on-primary-container:    #6f88ad;
+  --background:              #f8f9fa;
+  --on-background:           #191c1d;
+  --surface:                 #f8f9fa;
+  --on-surface:              #191c1d;
+  --surface-variant:         #e1e3e4;
+  --on-surface-variant:      #43474e;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low:   #f3f4f5;
+  --surface-container:       #edeeef;
+  --surface-container-high:  #e7e8e9;
+  --surface-container-highest: #e1e3e4;
+  --error:                   #ba1a1a;
+  --on-error:                #ffffff;
+  --error-container:         #ffdad6;
+  --on-error-container:      #93000a;
+  --outline:                 #74777f;
+  --outline-variant:         #c4c6cf;
+  
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--surface);
+  color: var(--on-surface);
+  overflow: hidden;
+}
+
+/* ── Left Branding Panel ── */
+#auth-branding {
+  flex: 1;
+  background: linear-gradient(145deg, #001f3f 0%, #0a2d52 40%, #1a3a6b 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+#auth-branding::before {
+  content: '';
+  position: absolute;
+  top: -8rem; right: -8rem;
+  width: 22rem; height: 22rem;
+  background: radial-gradient(circle, rgba(79,70,229,0.35) 0%, transparent 70%);
+  border-radius: 50%;
+}
+#auth-branding::after {
+  content: '';
+  position: absolute;
+  bottom: -5rem; left: -5rem;
+  width: 18rem; height: 18rem;
+  background: radial-gradient(circle, rgba(124,58,237,0.25) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.branding-logo-mark {
+  width: 4rem; height: 4rem;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  border-radius: 1.125rem;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 0 2rem rgba(124,58,237,0.5);
+}
+.branding-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+.branding-title span { color: #818cf8; }
+.branding-desc {
+  font-size: 0.9375rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.6;
+  max-width: 22rem;
+  margin: 0 auto 3rem auto;
+}
+.branding-features {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+}
+.branding-feature {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1.25rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 0.875rem;
+  backdrop-filter: blur(10px);
+  color: rgba(255,255,255,0.85);
+  font-size: 0.875rem;
+  font-weight: 500;
+  width: 24rem;
+  max-width: 100%;
+  transition: background 0.2s;
+}
+.branding-feature:hover { background: rgba(255,255,255,0.1); }
+.branding-feature-icon {
+  width: 2.25rem; height: 2.25rem;
+  border-radius: 0.625rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.125rem;
+}
+
+/* ── Right Form Panel ── */
+#auth-form-panel {
+  width: 26rem;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 2.5rem;
+  background: #fff;
+  overflow-y: auto;
+}
+.auth-card-inner { width: 100%; max-width: 22rem; }
+
+.auth-form-header { margin-bottom: 2rem; }
+.auth-form-header h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-blue);
+  letter-spacing: -0.03em;
+}
+.auth-form-header p {
+  font-size: 0.875rem;
+  color: var(--on-surface-variant);
+  margin-top: 0.375rem;
+}
+
+/* Input with icon */
+.auth-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.auth-input-group .auth-input-icon {
+  position: absolute;
+  left: 0.875rem;
+  color: var(--on-surface-variant);
+  font-size: 1.25rem;
+  pointer-events: none;
+  transition: color 0.15s;
+}
+.auth-input-group input {
+  padding-left: 2.75rem !important;
+}
+.auth-input-group:focus-within .auth-input-icon {
+  color: var(--primary-container);
+}
+.auth-input-group .auth-pw-toggle {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--on-surface-variant);
+  display: flex; align-items: center;
+  padding: 0.25rem;
+  border-radius: 0.375rem;
+  transition: color 0.15s;
+}
+.auth-input-group .auth-pw-toggle:hover { color: var(--primary-container); }
+
+/* Submit button */
+.auth-submit-btn {
+  width: 100%;
+  padding: 0.875rem;
+  background: linear-gradient(135deg, #001f3f, #1a3a6b);
+  color: #fff;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(0,31,63,0.25);
+  letter-spacing: 0.01em;
+}
+.auth-submit-btn:hover {
+  background: linear-gradient(135deg, #0a2d52, #2a4a7b);
+  box-shadow: 0 8px 24px rgba(0,31,63,0.35);
+  transform: translateY(-1px);
+}
+.auth-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Guest button */
+.auth-guest-btn {
+  width: 100%;
+  padding: 0.875rem;
+  background: linear-gradient(135deg, rgba(124,58,237,0.06), rgba(79,70,229,0.08));
+  color: #5b21b6;
+  border: 1.5px dashed #7c3aed;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  transition: all 0.2s;
+}
+.auth-guest-btn:hover {
+  background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(79,70,229,0.15));
+  border-color: #4f46e5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(124,58,237,0.2);
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+}
+.auth-divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--outline-variant);
+}
+.auth-divider span {
+  font-size: 0.75rem;
+  color: var(--on-surface-variant);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.auth-toggle-link {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--on-surface-variant);
+}
+.auth-toggle-link button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #4f46e5;
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0;
+  transition: color 0.15s;
+}
+.auth-toggle-link button:hover { color: #7c3aed; }
+
+/* ── Responsive ── */
+@media (max-width: 767px) {
+  #auth-page {
+    margin: -0.875rem;
+    width: calc(100% + 1.75rem);
+    flex-direction: column;
+    height: 100dvh;
+    overflow: hidden;
+  }
+  #auth-branding { display: none; }
+
+  #auth-form-panel {
+    width: 100%;
+    padding: 1.5rem 1.25rem;
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow: hidden;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .auth-card-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    gap: 0;
+  }
+
+  /* Tighter header */
+  .auth-form-header {
+    margin-bottom: 1rem;
+  }
+  .auth-form-header > div:first-child {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+    border-radius: 0.625rem !important;
+    margin-bottom: 0.875rem !important;
+  }
+  .auth-form-header h1 { font-size: 1.375rem !important; }
+  .auth-form-header p  { font-size: 0.8125rem !important; margin-top: 0.25rem; }
+
+  /* Compact form */
+  #auth-form { gap: 0.75rem !important; }
+  .form-group { margin-bottom: 0 !important; }
+  .form-label { font-size: 0.75rem !important; margin-bottom: 0.25rem; }
+  .form-input { height: 2.75rem !important; font-size: 0.875rem !important; }
+
+  /* Compact buttons */
+  .auth-submit-btn {
+    padding: 0.75rem !important;
+    font-size: 0.875rem !important;
+    border-radius: 0.625rem !important;
+  }
+  .auth-guest-btn {
+    padding: 0.625rem !important;
+    font-size: 0.8125rem !important;
+    border-radius: 0.625rem !important;
+  }
+
+  /* Tighter toggle link */
+  .auth-toggle-link {
+    margin-top: 0.875rem !important;
+    font-size: 0.8125rem !important;
+  }
+  .auth-toggle-link button { font-size: 0.8125rem !important; }
+
+  /* Compact divider */
+  .auth-divider { margin: 0.875rem 0 !important; }
+
+  /* Guest note tiny */
+  #auth-form-panel > div > p:last-child {
+    font-size: 0.625rem !important;
+    margin-top: 0.375rem !important;
+  }
+}
+
+</style>
+
+<div id="auth-page" class="fade-in">
+
+  <!-- ── Left: Branding ── -->
+  <div id="auth-branding">
+    <div class="branding-logo-mark">
+      <span class="material-symbols-outlined" style="font-size:2rem;color:#fff;">inventory_2</span>
+    </div>
+    <h2 class="branding-title">Gadget<span>Stock</span></h2>
+    <p class="branding-desc">Platform manajemen toko gadget yang lengkap — dari kasir POS hingga analitik penjualan, semua dalam satu dashboard.</p>
+    <div class="branding-features">
+      <div class="branding-feature">
+        <div class="branding-feature-icon" style="background:rgba(79,70,229,0.25);">
+          <span class="material-symbols-outlined" style="color:#818cf8;">point_of_sale</span>
+        </div>
+        <span>Kasir POS dengan barcode scanner</span>
+      </div>
+      <div class="branding-feature">
+        <div class="branding-feature-icon" style="background:rgba(22,163,74,0.25);">
+          <span class="material-symbols-outlined" style="color:#4ade80;">inventory_2</span>
+        </div>
+        <span>Manajemen inventaris real-time</span>
+      </div>
+      <div class="branding-feature">
+        <div class="branding-feature-icon" style="background:rgba(245,158,11,0.25);">
+          <span class="material-symbols-outlined" style="color:#fbbf24;">analytics</span>
+        </div>
+        <span>Laporan & analitik penjualan</span>
+      </div>
+      <div class="branding-feature">
+        <div class="branding-feature-icon" style="background:rgba(124,58,237,0.25);">
+          <span class="material-symbols-outlined" style="color:#a78bfa;">group</span>
+        </div>
+        <span>Multi-level akses karyawan</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Right: Auth Form ── -->
+  <div id="auth-form-panel">
+    <div class="auth-card-inner">
+
+      <!-- Header -->
+      <div class="auth-form-header">
+        <div style="width:3rem;height:3rem;background:linear-gradient(135deg,#001f3f,#1a3a6b);border-radius:0.875rem;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;box-shadow:0 4px 12px rgba(0,31,63,0.25);">
+          <span class="material-symbols-outlined" id="auth-header-icon" style="font-size:1.5rem;color:#fff;">lock_person</span>
+        </div>
+        <h1 id="auth-title">Staff Login</h1>
+        <p id="auth-subtitle">Masukkan Employee ID Anda untuk melanjutkan</p>
+      </div>
+
+      <!-- Form -->
+      <form id="auth-form" onsubmit="handleAuth(event)" style="display:flex;flex-direction:column;gap:1rem;">
+
+        <!-- Full Name (register only) -->
+        <div id="name-group" class="form-group" style="display:none;">
+          <label class="form-label">Full Name</label>
+          <div class="auth-input-group">
+            <span class="material-symbols-outlined auth-input-icon">badge</span>
+            <input type="text" id="f-fullname" class="form-input" placeholder="Nama lengkap Anda" />
+          </div>
+        </div>
+
+        <!-- Employee ID -->
+        <div class="form-group">
+          <label class="form-label">Employee ID</label>
+          <div class="auth-input-group">
+            <span class="material-symbols-outlined auth-input-icon">person</span>
+            <input type="text" id="f-empid" class="form-input" placeholder="Contoh: EMP-001" required />
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="auth-input-group">
+            <span class="material-symbols-outlined auth-input-icon">key</span>
+            <input type="password" id="f-password" class="form-input" placeholder="Masukkan password" required style="padding-right:3rem;" />
+            <button type="button" class="auth-pw-toggle" onclick="togglePassword()">
+              <span class="material-symbols-outlined" id="pw-icon" style="font-size:1.25rem;">visibility</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="auth-submit-btn" id="auth-btn" style="margin-top:0.5rem;">
+          <span class="material-symbols-outlined" id="auth-btn-icon">login</span>
+          <span id="auth-btn-text">Sign In</span>
+        </button>
+
+      </form>
+
+      <!-- Toggle login/register -->
+      <div class="auth-toggle-link">
+        <span id="auth-toggle-text">Belum punya akun?</span>
+        <button id="toggle-auth-btn" onclick="toggleMode()">Daftar di sini</button>
+      </div>
+
+      <!-- Divider -->
+      <div class="auth-divider">
+        <div class="auth-divider-line"></div>
+        <span>atau coba dulu</span>
+        <div class="auth-divider-line"></div>
+      </div>
+
+      <!-- Guest Button -->
+      <button onclick="enterGuestMode()" class="auth-guest-btn">
+        <span class="material-symbols-outlined" style="font-size:1.25rem;">visibility</span>
+        Masuk sebagai Tamu (Demo Mode)
+      </button>
+      <p style="text-align:center;font-size:0.6875rem;color:var(--on-surface-variant);margin-top:0.625rem;line-height:1.5;">
+        Semua fitur aktif — data tidak disimpan ke database
+      </p>
+
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/js/pages/auth.js"></script>

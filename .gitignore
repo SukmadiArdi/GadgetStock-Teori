@@ -1,0 +1,102 @@
+# ==============================================================================
+# GadgetStock - .gitignore
+# Berkas & Direktori yang tidak di-upload / di-commit ke Git Repository
+# ==============================================================================
+
+# --- Kredensial & Lingkungan (Environment Variables & Secrets) ---
+# Sangat krusial: mencegah kebocoran SUPABASE_URL & SUPABASE_SERVICE_ROLE_KEY
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+*.env
+*.env.*
+!.env.example
+
+# --- Dependencies & Package Managers ---
+node_modules/
+jspm_packages/
+web_modules/
+
+# --- Build, Deploy & Serverless Cache (Vercel) ---
+.vercel/
+.vercel
+dist/
+build/
+out/
+.cache/
+
+# --- Pengujian & Pelaporan (Jest, Coverage & SonarQube) ---
+coverage/
+*.lcov
+.nyc_output/
+reports/
+.scannerwork/
+.sonar/
+
+# --- File Log & Runtime Output ---
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Python Artifacts (scripts/ sonarqube scanner & docx converter) ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# --- File Sementara Office & Backup Dokumen ---
+# Mengabaikan file lock Microsoft Word (seperti ~$dokumen.docx) dan backup
+~$*
+~$*.docx
+~$*.doc
+~$*.xlsx
+~$*.pptx
+*.bak
+*.tmp
+*.temp
+*~
+*.swp
+*.swo
+
+# --- Konfigurasi Editor & IDE ---
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# --- Sistem Operasi (OS Generated Files) ---
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# --- Supabase Local Development Cache ---
+.supabase/

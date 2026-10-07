@@ -1,0 +1,231 @@
+<!-- pages/analytics.html -->
+<div class="fade-in">
+<style>
+  /* Chart Styles */
+  .chart-container-wrapper {
+    display: flex;
+    height: 10.5rem;
+    position: relative;
+    margin-bottom: 0.5rem;
+  }
+  .chart-y-axis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 10rem;
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: var(--on-surface-variant);
+    width: 3.25rem;
+    text-align: right;
+    padding-right: 0.625rem;
+    line-height: 1;
+    margin-top: -3px; /* Align with first bar peak */
+  }
+  .chart-body {
+    position: relative;
+    flex: 1;
+    height: 10rem;
+  }
+  .chart-gridline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 1px dashed rgba(196, 198, 207, 0.25);
+    z-index: 1;
+  }
+  .chart-bars-container {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    z-index: 2;
+  }
+  .chart-bar {
+    flex: 1;
+    border-radius: 4px 4px 0 0;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .chart-bar:hover {
+    transform: scaleY(1.05);
+    z-index: 10;
+  }
+  .chart-bar-active {
+    background: linear-gradient(180deg, #3b82f6 0%, var(--primary-container) 100%);
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.15);
+  }
+  .chart-bar-weekend {
+    background: linear-gradient(180deg, #94a3b8 0%, #64748b 100%);
+  }
+  .chart-bar-peak {
+    background: linear-gradient(180deg, #10b981 0%, #059669 100%) !important;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4) !important;
+  }
+  .chart-bar-empty {
+    background: var(--surface-container-high);
+  }
+  
+  /* Tooltip styled globally in components.css */
+
+  /* Insights Cards */
+  .insight-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(196, 198, 207, 0.15);
+  }
+  .insight-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--surface-container-low);
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(196, 198, 207, 0.08);
+  }
+  .insight-icon {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-sm);
+  }
+  .insight-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+  .insight-label {
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    color: var(--on-surface-variant);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .insight-val {
+    font-size: 0.8125rem;
+    font-weight: 800;
+    color: var(--text-blue);
+  }
+  .insight-subtext {
+    font-size: 0.625rem;
+    color: var(--on-surface-variant);
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 767px) {
+    .chart-container-wrapper {
+      height: 9rem;
+    }
+    .chart-y-axis {
+      width: 2.75rem;
+      font-size: 0.55rem;
+      padding-right: 0.375rem;
+      margin-top: -2px;
+    }
+    .chart-body {
+      height: 8.5rem;
+    }
+    .insight-card {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .insight-item {
+      padding: 0.5rem 0.75rem;
+    }
+  }
+</style>
+
+
+  <div class="analytics-header-row" style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2rem;">
+    <div>
+      <p style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.15em;font-weight:700;color:var(--on-surface-variant);">Business Intelligence</p>
+      <h1 style="font-size:1.875rem;font-weight:800;color:var(--text-blue);">Monthly Analytics</h1>
+    </div>
+    <div style="display:flex;gap:0.75rem;align-items:center;height:2.5rem;">
+      <input type="month" id="analytics-month" class="form-input" style="width:11rem;height:100%;margin:0;" onchange="loadAnalytics()" />
+      <button class="btn btn-primary btn-sm" id="btn-export-analytics" onclick="exportAnalyticsExcel()" style="display:flex;align-items:center;justify-content:center;gap:0.5rem;height:100%;padding:0 1.25rem;font-weight:600;margin:0;">
+        <span class="material-symbols-outlined" style="font-size:1.125rem;">grid_on</span> Export Excel
+      </button>
+    </div>
+  </div>
+
+  <!-- KPI Cards -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;">
+    <div class="card-hero" style="padding:1.5rem;grid-column:span 2;">
+      <p style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--on-primary-container);">Monthly Revenue</p>
+      <h3 id="a-revenue" style="font-size:2rem;font-weight:800;color:#fff;margin:0.25rem 0;" class="text-rupiah">—</h3>
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <span class="material-symbols-outlined" id="a-rev-icon" style="font-size:1rem;color:#4ade80;">trending_up</span>
+        <span id="a-rev-pct" style="font-size:0.75rem;color:rgba(255,255,255,0.7);">—% vs last month</span>
+      </div>
+    </div>
+    <div class="card" style="padding:1.5rem;">
+      <p style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;color:var(--on-surface-variant);">Total Orders</p>
+      <h3 id="a-orders" style="font-size:1.5rem;font-weight:800;color:var(--text-blue);margin-top:0.25rem;">—</h3>
+    </div>
+    <div class="card" style="padding:1.5rem;">
+      <p style="font-size:0.625rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;color:var(--on-surface-variant);">Avg. Order</p>
+      <h3 id="a-avg" style="font-size:1.5rem;font-weight:800;color:var(--text-blue);margin-top:0.25rem;" class="text-rupiah">—</h3>
+    </div>
+  </div>
+
+  <div class="two-col-grid" style="display:grid;grid-template-columns:1fr 1.2fr;gap:1.5rem;">
+    <!-- Daily Revenue Chart -->
+    <div class="card" style="padding:1.5rem;position:relative;">
+      <h2 style="font-size:0.875rem;font-weight:700;color:var(--text-blue);margin-bottom:0.25rem;">Revenue — Daily Breakdown</h2>
+      <p style="font-size:0.6875rem;color:var(--on-surface-variant);margin-bottom:1.25rem;">Grafik omzet harian beserta data transaksi</p>
+      
+      <!-- Chart Area with Y Axis and Grid -->
+      <div class="chart-container-wrapper">
+        <!-- Y-Axis labels (populated dynamically by JS) -->
+        <div class="chart-y-axis" id="chart-y-axis">
+          <span>—</span>
+          <span>—</span>
+          <span>—</span>
+          <span>0</span>
+        </div>
+        
+        <div class="chart-body">
+          <!-- Horizontal dashed gridlines -->
+          <div class="chart-gridline" style="top:0%;"></div>
+          <div class="chart-gridline" style="top:33%;"></div>
+          <div class="chart-gridline" style="top:66%;"></div>
+          <div class="chart-gridline" style="top:100%; border-top-style:solid; border-top-color:var(--outline-variant);"></div>
+          
+          <!-- Bars Container -->
+          <div class="chart-bars-container" id="daily-chart"></div>
+        </div>
+      </div>
+      
+      <!-- X-Axis -->
+      <div style="display:flex;justify-content:space-between;margin-top:0.5rem;margin-left:3.25rem;font-size:0.625rem;font-weight:700;color:var(--on-surface-variant);">
+        <span>1</span>
+        <span>10</span>
+        <span>20</span>
+        <span id="last-day">31</span>
+      </div>
+
+      <!-- Dynamic Insights Cards -->
+      <div class="insight-card" id="daily-insights">
+        <!-- Filled dynamically by JS -->
+      </div>
+    </div>
+
+    <!-- Top Products -->
+    <div class="card" style="padding:1.5rem;">
+      <h2 style="font-size:0.875rem;font-weight:700;color:var(--text-blue);margin-bottom:1.25rem;">🏆 Top 5 Products This Month</h2>
+      <div id="a-top-products" style="display:flex;flex-direction:column;gap:0.875rem;"></div>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/js/pages/analytics.js"></script>
